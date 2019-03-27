@@ -1,4 +1,4 @@
-grammar mxstar;
+grammar Mxstar;
 
 compilationUnit
     :   globalDeclaration* EOF
@@ -50,15 +50,25 @@ statementList
 
 statement
     :   '{' statementList '}'
+        # BlockStatement
     |   variableDeclaration ';'
+        # VarDeclStatement
     |   expression ';'
+        # ExprStatement
     |   IF '(' expression ')' statement (ELSE statement)?
+        # IfStatement
     |   WHILE '(' expression ')' statement
+        # WhileStatement
     |   FOR '(' expression? ';' expression? ';' expression? ')' statement
+        # ForStatement
     |   BREAK ';'
+        # BreakStatment
     |   CONTINUE ';'
+        # ContiStatement
     |   RETURN expression? ';'
+        # ReturnStatement
     |   ';'
+        # EmptyStatement
     ;
 
 variableDeclaration
@@ -95,30 +105,55 @@ expressionList
 
 expression
     :   '(' expression ')'
-    |   THIS
-    |   IntegralLiteral
-    |   StringLiteral
-    |   BoolLiteral
-    |   NullLiteral
-    |   Identifier
-    |   expression '.' (Identifier | functionCall)
+        # PrimaryExpression
+    |   token = THIS
+        # PrimaryExpression
+    |   token = IntegralLiteral
+        # PrimaryExpression
+    |   token = StringLiteral
+        # PrimaryExpression
+    |   token = BoolLiteral
+        # PrimaryExpression
+    |   token = NullLiteral
+        # PrimaryExpression
+    |   token = Identifier
+        # PrimaryExpression
+    |   expression opt = '.' (Identifier | functionCall)
+        # MemberAccessExpression
     |   functionCall
+        # FunctionCallExpression
     |   expression '[' expression ']'
+        # ArrayIndexExpression
     |   NEW atomType ('[' expression ']')* ('[' empty ']')*
+        # NewArrayExpression
     |   NEW atomType '(' expressionList? ')'
-    |   ('++' | '--' | '-' | '!' | '~') expression
-    |   expression ('++' | '--')
-    |   expression ('*' | '/' | '%') expression
-    |   expression ('+' | '-') expression
-    |   expression ('<<' | '>>') expression
-    |   expression ('<' | '>' | '<=' | '>=') expression
-    |   expression ('==' | '!=') expression
-    |   expression '&' expression
-    |   expression '^' expression
-    |   expression '|' expression
-    |   expression '&&' expression
-    |   expression '||' expression
-    |   expression '=' expression
+        # NewExpression
+    |   <assoc = right> opt = ('++' | '--' | '+' | '-' | '!' | '~') expression
+        # UnaryExpression
+    |   expression opt = ('++' | '--')
+        # PosifixIncDecExpression
+    |   expression opt = ('*' | '/' | '%') expression
+        # BinaryExpression
+    |   expression opt = ('+' | '-') expression
+        # BinaryExpression
+    |   expression opt = ('<<' | '>>') expression
+        # BinaryExpression
+    |   expression opt = ('<' | '>' | '<=' | '>=') expression
+        # BinaryExpression
+    |   expression opt = ('==' | '!=') expression
+        # BinaryExpression
+    |   expression opt = '&' expression
+        # BinaryExpression
+    |   expression opt = '^' expression
+        # BinaryExpression
+    |   expression opt = '|' expression
+        # BinaryExpression
+    |   expression opt = '&&' expression
+        # BinaryExpression
+    |   expression opt = '||' expression
+        # BinaryExpression
+    |   <assoc = right> expression opt = '=' expression
+        # AssignmentExpression
     ;
 
 empty   :   ;

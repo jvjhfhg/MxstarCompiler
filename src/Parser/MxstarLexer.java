@@ -1,4 +1,4 @@
-// Generated from mxstar.g4 by ANTLR 4.7.2
+// Generated from Mxstar.g4 by ANTLR 4.7.2
 import org.antlr.v4.runtime.Lexer;
 import org.antlr.v4.runtime.CharStream;
 import org.antlr.v4.runtime.Token;
@@ -9,7 +9,7 @@ import org.antlr.v4.runtime.dfa.DFA;
 import org.antlr.v4.runtime.misc.*;
 
 @SuppressWarnings({"all", "warnings", "unchecked", "unused", "cast"})
-public class mxstarLexer extends Lexer {
+public class MxstarLexer extends Lexer {
 	static { RuntimeMetaData.checkVersion("4.7.2", RuntimeMetaData.VERSION); }
 
 	protected static final DFA[] _decisionToDFA;
@@ -49,7 +49,7 @@ public class mxstarLexer extends Lexer {
 	private static String[] makeLiteralNames() {
 		return new String[] {
 			null, "';'", "'{'", "'}'", "'('", "')'", "','", "'='", "'['", "']'", 
-			"'.'", "'++'", "'--'", "'-'", "'!'", "'~'", "'*'", "'/'", "'%'", "'+'", 
+			"'.'", "'++'", "'--'", "'+'", "'-'", "'!'", "'~'", "'*'", "'/'", "'%'", 
 			"'<<'", "'>>'", "'<'", "'>'", "'<='", "'>='", "'=='", "'!='", "'&'", 
 			"'^'", "'|'", "'&&'", "'||'", "'bool'", "'int'", "'string'", "'void'", 
 			"'if'", "'else'", "'for'", "'while'", "'break'", "'continue'", "'return'", 
@@ -102,13 +102,13 @@ public class mxstarLexer extends Lexer {
 	}
 
 
-	public mxstarLexer(CharStream input) {
+	public MxstarLexer(CharStream input) {
 		super(input);
 		_interp = new LexerATNSimulator(this,_ATN,_decisionToDFA,_sharedContextCache);
 	}
 
 	@Override
-	public String getGrammarFileName() { return "mxstar.g4"; }
+	public String getGrammarFileName() { return "Mxstar.g4"; }
 
 	@Override
 	public String[] getRuleNames() { return ruleNames; }
@@ -179,13 +179,13 @@ public class mxstarLexer extends Lexer {
 		"\7?\2\2\u0080\20\3\2\2\2\u0081\u0082\7]\2\2\u0082\22\3\2\2\2\u0083\u0084"+
 		"\7_\2\2\u0084\24\3\2\2\2\u0085\u0086\7\60\2\2\u0086\26\3\2\2\2\u0087\u0088"+
 		"\7-\2\2\u0088\u0089\7-\2\2\u0089\30\3\2\2\2\u008a\u008b\7/\2\2\u008b\u008c"+
-		"\7/\2\2\u008c\32\3\2\2\2\u008d\u008e\7/\2\2\u008e\34\3\2\2\2\u008f\u0090"+
-		"\7#\2\2\u0090\36\3\2\2\2\u0091\u0092\7\u0080\2\2\u0092 \3\2\2\2\u0093"+
-		"\u0094\7,\2\2\u0094\"\3\2\2\2\u0095\u0096\7\61\2\2\u0096$\3\2\2\2\u0097"+
-		"\u0098\7\'\2\2\u0098&\3\2\2\2\u0099\u009a\7-\2\2\u009a(\3\2\2\2\u009b"+
-		"\u009c\7>\2\2\u009c\u009d\7>\2\2\u009d*\3\2\2\2\u009e\u009f\7@\2\2\u009f"+
-		"\u00a0\7@\2\2\u00a0,\3\2\2\2\u00a1\u00a2\7>\2\2\u00a2.\3\2\2\2\u00a3\u00a4"+
-		"\7@\2\2\u00a4\60\3\2\2\2\u00a5\u00a6\7>\2\2\u00a6\u00a7\7?\2\2\u00a7\62"+
+		"\7/\2\2\u008c\32\3\2\2\2\u008d\u008e\7-\2\2\u008e\34\3\2\2\2\u008f\u0090"+
+		"\7/\2\2\u0090\36\3\2\2\2\u0091\u0092\7#\2\2\u0092 \3\2\2\2\u0093\u0094"+
+		"\7\u0080\2\2\u0094\"\3\2\2\2\u0095\u0096\7,\2\2\u0096$\3\2\2\2\u0097\u0098"+
+		"\7\61\2\2\u0098&\3\2\2\2\u0099\u009a\7\'\2\2\u009a(\3\2\2\2\u009b\u009c"+
+		"\7>\2\2\u009c\u009d\7>\2\2\u009d*\3\2\2\2\u009e\u009f\7@\2\2\u009f\u00a0"+
+		"\7@\2\2\u00a0,\3\2\2\2\u00a1\u00a2\7>\2\2\u00a2.\3\2\2\2\u00a3\u00a4\7"+
+		"@\2\2\u00a4\60\3\2\2\2\u00a5\u00a6\7>\2\2\u00a6\u00a7\7?\2\2\u00a7\62"+
 		"\3\2\2\2\u00a8\u00a9\7@\2\2\u00a9\u00aa\7?\2\2\u00aa\64\3\2\2\2\u00ab"+
 		"\u00ac\7?\2\2\u00ac\u00ad\7?\2\2\u00ad\66\3\2\2\2\u00ae\u00af\7#\2\2\u00af"+
 		"\u00b0\7?\2\2\u00b08\3\2\2\2\u00b1\u00b2\7(\2\2\u00b2:\3\2\2\2\u00b3\u00b4"+

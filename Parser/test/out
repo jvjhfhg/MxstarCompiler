@@ -1,1 +1,0 @@
-(compilationUnit (globalDeclaration (functionDeclaration (type (atomType int)) main ( ) (functionBody { (statementList (statement (variableDeclaration (type (atomType int)) (variableDeclarators variableDeclarator)) <missing ';'>) (statement (expression (expression 1) = (expression 1)) ;) (statement return (expression 0) ;)) }))) <EOF>)
