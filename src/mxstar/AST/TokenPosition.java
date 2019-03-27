@@ -21,7 +21,7 @@ public class TokenPosition {
         this(ctx.start);
     }
     
-    public TokenPosition(ASTNode node) {
+    public TokenPosition(AstNode node) {
         this.row = node.position.row;
         this.column = node.position.column;
     }
