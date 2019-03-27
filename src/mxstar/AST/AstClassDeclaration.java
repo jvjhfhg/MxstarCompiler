@@ -2,7 +2,7 @@ package mxstar.AST;
 
 import java.util.*;
 
-public class AstClassDeclaration extends AstNode {
+public class AstClassDeclaration extends AstDeclaration {
     
     
     @Override

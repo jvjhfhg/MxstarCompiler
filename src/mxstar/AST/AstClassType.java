@@ -1,9 +1,14 @@
 package mxstar.AST;
 
-import java.util.*;
+public class AstClassType extends AstType {
+    public String typeName;
 
-public class AstClassType extends AstNode {
-    
+    public AstClassType() {
+        typeName = null;
+    }
+    public AstClassType(String typeName) {
+        this.typeName = typeName;
+    }
     
     @Override
     void accept(IAstVisitor visitor) {

@@ -1,10 +1,14 @@
 package mxstar.AST;
 
-import java.util.*;
+public class AstArrayType extends AstType {
+    public AstType baseType;
+    public int dimension;
 
-public class AstArrayType extends AstNode {
-    
-    
+    public AstArrayType() {
+        baseType = null;
+        dimension = -1;
+    }
+
     @Override
     void accept(IAstVisitor visitor) {
         visitor.visit(this);
