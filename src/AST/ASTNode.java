@@ -1,5 +1,7 @@
 package mxstar.AST;
 
-public class ASTNode {
+public abstract class ASTNode {
+    TokenPosition position;
+    
     
 }
