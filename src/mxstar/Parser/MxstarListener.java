@@ -1,7 +1,4 @@
 // Generated from Mxstar.g4 by ANTLR 4.7.2
-
-package mxstar.parser;
-
 import org.antlr.v4.runtime.tree.ParseTreeListener;
 
 /**
@@ -382,6 +379,18 @@ public interface MxstarListener extends ParseTreeListener {
 	 */
 	void exitNewExpression(MxstarParser.NewExpressionContext ctx);
 	/**
+	 * Enter a parse tree produced by the {@code PostfixIncDecExpression}
+	 * labeled alternative in {@link MxstarParser#expression}.
+	 * @param ctx the parse tree
+	 */
+	void enterPostfixIncDecExpression(MxstarParser.PostfixIncDecExpressionContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code PostfixIncDecExpression}
+	 * labeled alternative in {@link MxstarParser#expression}.
+	 * @param ctx the parse tree
+	 */
+	void exitPostfixIncDecExpression(MxstarParser.PostfixIncDecExpressionContext ctx);
+	/**
 	 * Enter a parse tree produced by the {@code UnaryExpression}
 	 * labeled alternative in {@link MxstarParser#expression}.
 	 * @param ctx the parse tree
@@ -417,18 +426,6 @@ public interface MxstarListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitFunctionCallExpression(MxstarParser.FunctionCallExpressionContext ctx);
-	/**
-	 * Enter a parse tree produced by the {@code PosifixIncDecExpression}
-	 * labeled alternative in {@link MxstarParser#expression}.
-	 * @param ctx the parse tree
-	 */
-	void enterPosifixIncDecExpression(MxstarParser.PosifixIncDecExpressionContext ctx);
-	/**
-	 * Exit a parse tree produced by the {@code PosifixIncDecExpression}
-	 * labeled alternative in {@link MxstarParser#expression}.
-	 * @param ctx the parse tree
-	 */
-	void exitPosifixIncDecExpression(MxstarParser.PosifixIncDecExpressionContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link MxstarParser#empty}.
 	 * @param ctx the parse tree

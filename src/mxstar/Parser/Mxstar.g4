@@ -131,7 +131,7 @@ expression
     |   <assoc = right> opt = ('++' | '--' | '+' | '-' | '!' | '~') expression
         # UnaryExpression
     |   expression opt = ('++' | '--')
-        # PosifixIncDecExpression
+        # PostfixIncDecExpression
     |   expression opt = ('*' | '/' | '%') expression
         # BinaryExpression
     |   expression opt = ('+' | '-') expression
