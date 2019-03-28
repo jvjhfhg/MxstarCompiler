@@ -1,6 +1,6 @@
 # Mxstar Compiler
 
-## Structure of AST
+## Abstract Syntax Tree
 ```
 AstNode
 	AstProgram
@@ -13,7 +13,8 @@ AstNode
 		AstFunctionDeclaration
 		AstVariableDeclaration
 	AstExpression
-		AstPrimaryExpression
+		AstLiteralExpression
+		AstIdentifierExpression
 		AstMemberAccessExpression
 		AstFunctionCallExpression
 		AstArrayIndexExpression
@@ -36,4 +37,8 @@ AstNode
 		AstEmptyStatement
 ```
 
+## Symbol Table
 
+```
+TODO
+```
