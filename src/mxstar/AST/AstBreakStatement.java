@@ -1,12 +1,8 @@
 package mxstar.AST;
 
-import java.util.*;
-
-public class AstBreakStatement extends AstNode {
-    
-    
+public class AstBreakStatement extends AstStatement {
     @Override
-    void accept(IAstVisitor visitor) {
+    public void accept(IAstVisitor visitor) {
         visitor.visit(this);
     }
 }

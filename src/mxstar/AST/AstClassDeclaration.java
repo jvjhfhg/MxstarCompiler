@@ -3,20 +3,20 @@ package mxstar.AST;
 import java.util.*;
 
 public class AstClassDeclaration extends AstDeclaration {
-    public String className;
-    public List<AstVariableDeclaration> variables;
+    public String name;
+    public List<AstVariableDeclaration> fields;
     public List<AstFunctionDeclaration> methods;
     public AstFunctionDeclaration constructor;
 
     public AstClassDeclaration() {
-        className = null;
-        variables = new LinkedList<AstVariableDeclaration>();
-        methods = new LinkedList<AstFunctionDeclaration>();
+        name = null;
+        fields = new LinkedList<>();
+        methods = new LinkedList<>();
         constructor = null;
     }
-    
+
     @Override
-    void accept(IAstVisitor visitor) {
+    public void accept(IAstVisitor visitor) {
         visitor.visit(this);
     }
 }

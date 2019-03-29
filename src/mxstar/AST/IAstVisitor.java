@@ -14,7 +14,8 @@ public interface IAstVisitor {
     void visit(AstVariableDeclaration node);
 
     void visit(AstExpression node);
-    void visit(AstPrimaryExpression node);
+    void visit(AstLiteralExpression node);
+    void visit(AstIdentifierExpression node);
     void visit(AstMemberAccessExpression node);
     void visit(AstFunctionCallExpression node);
     void visit(AstArrayIndexExpression node);

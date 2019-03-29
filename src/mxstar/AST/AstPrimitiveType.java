@@ -1,17 +1,17 @@
 package mxstar.AST;
 
 public class AstPrimitiveType extends AstType {
-    public String typeName;
+    public String name;
 
     public AstPrimitiveType() {
-        typeName = null;
+        name = null;
     }
-    public AstPrimitiveType(String typeName) {
-        this.typeName = typeName;
+    public AstPrimitiveType(String name) {
+        this.name = name;
     }
 
     @Override
-    void accept(IAstVisitor visitor) {
+    public void accept(IAstVisitor visitor) {
         visitor.visit(this);
     }
 }

@@ -2,11 +2,17 @@ package mxstar.AST;
 
 import java.util.*;
 
-public class AstNewExpression extends AstNode {
-    
+public class AstNewExpression extends AstExpression {
+    public AstType baseType;
+    public List<AstExpression> arguments;
+
+    public AstNewExpression() {
+        baseType = null;
+        arguments = new LinkedList<>();
+    }
     
     @Override
-    void accept(IAstVisitor visitor) {
+    public void accept(IAstVisitor visitor) {
         visitor.visit(this);
     }
 }

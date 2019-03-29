@@ -3,10 +3,14 @@ package mxstar.AST;
 import java.util.*;
 
 public class AstBlockStatement extends AstNode {
-    
-    
+    public List<AstStatement> statements;
+
+    public AstBlockStatement() {
+        statements = new LinkedList<>();
+    }
+
     @Override
-    void accept(IAstVisitor visitor) {
+    public void accept(IAstVisitor visitor) {
         visitor.visit(this);
     }
 }

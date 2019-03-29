@@ -1,12 +1,11 @@
 package mxstar.AST;
 
-import java.util.*;
-
-public class AstUnaryExpression extends AstNode {
-    
+public class AstUnaryExpression extends AstExpression {
+    public String opt;
+    public AstExpression expr;
     
     @Override
-    void accept(IAstVisitor visitor) {
+    public void accept(IAstVisitor visitor) {
         visitor.visit(this);
     }
 }

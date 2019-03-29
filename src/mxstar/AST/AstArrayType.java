@@ -10,7 +10,7 @@ public class AstArrayType extends AstType {
     }
 
     @Override
-    void accept(IAstVisitor visitor) {
+    public void accept(IAstVisitor visitor) {
         visitor.visit(this);
     }
 }

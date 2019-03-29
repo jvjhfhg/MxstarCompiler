@@ -8,7 +8,7 @@ public class TokenPosition {
     public final int column;
     
     public TokenPosition(int row, int column) {
-        this.row = rot;
+        this.row = row;
         this.column = column;
     }
     

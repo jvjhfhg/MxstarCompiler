@@ -1,17 +1,17 @@
 package mxstar.AST;
 
 public class AstClassType extends AstType {
-    public String typeName;
+    public String name;
 
     public AstClassType() {
-        typeName = null;
+        name = null;
     }
-    public AstClassType(String typeName) {
-        this.typeName = typeName;
+    public AstClassType(String name) {
+        this.name = name;
     }
     
     @Override
-    void accept(IAstVisitor visitor) {
+    public void accept(IAstVisitor visitor) {
         visitor.visit(this);
     }
 }

@@ -1,12 +1,10 @@
 package mxstar.AST;
 
-import java.util.*;
-
-public class AstVarDeclStatement extends AstNode {
-    
+public class AstVarDeclStatement extends AstStatement {
+    public AstVariableDeclaration declaration;
     
     @Override
-    void accept(IAstVisitor visitor) {
+    public void accept(IAstVisitor visitor) {
         visitor.visit(this);
     }
 }

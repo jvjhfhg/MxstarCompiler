@@ -9,10 +9,10 @@ public class AstProgram extends AstNode {
     public List<AstDeclaration> declarations;
 
     public AstProgram() {
-        this.classes = new LinkedList<AstClassDeclaration>();
-        this.functions = new LinkedList<AstFunctionDeclaration>();
-        this.variables = new LinkedList<AstVariableDeclaration>();
-        this.declarations = new LinkedList<AstDeclaration>();
+        this.classes = new LinkedList<>();
+        this.functions = new LinkedList<>();
+        this.variables = new LinkedList<>();
+        this.declarations = new LinkedList<>();
     }
 
     public void add(AstClassDeclaration node) {
@@ -31,7 +31,7 @@ public class AstProgram extends AstNode {
     }
 
     @Override
-    void accept(IAstVisitor visitor) {
+    public void accept(IAstVisitor visitor) {
         visitor.visit(this);
     }
 }

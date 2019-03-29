@@ -2,11 +2,17 @@ package mxstar.AST;
 
 import java.util.*;
 
-public class AstWhileStatement extends AstNode {
-    
+public class AstWhileStatement extends AstStatement {
+    public AstExpression condition;
+    public List<AstStatement> body;
+
+    public AstWhileStatement() {
+        condition = null;
+        body = new LinkedList<>();
+    }
     
     @Override
-    void accept(IAstVisitor visitor) {
+    public void accept(IAstVisitor visitor) {
         visitor.visit(this);
     }
 }

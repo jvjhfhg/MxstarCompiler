@@ -1,10 +1,10 @@
 package mxstar.AST;
 
 public class AstExpression extends AstNode {
-    public AstType valueType;
+    public AstType type;
 
     @Override
-    void accept(IAstVisitor visitor) {
+    public void accept(IAstVisitor visitor) {
         visitor.visit(this);
     }
 }

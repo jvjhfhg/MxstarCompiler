@@ -5,18 +5,19 @@ import mxstar.AST.TokenPosition;
 import java.io.*;
 import java.util.*;
 
-public class ErrorRecorder {private List<String> errorMessages;
+public class ErrorRecorder {
+    private List<String> errorMessages;
 
     public ErrorRecorder() {
-        errorMessages = new LinkedList<String>();
+        errorMessages = new LinkedList<>();
     }
 
     public String toString() {
-        StringBuilder str = new StringBuilder();
+        StringBuilder stringBuilder = new StringBuilder();
         for (String s: errorMessages) {
-            str.append(s + "\n");
+            stringBuilder.append(s + "\n");
         }
-        return str.toString();
+        return stringBuilder.toString();
     }
 
     public void add(TokenPosition position, String message) {
@@ -24,7 +25,7 @@ public class ErrorRecorder {private List<String> errorMessages;
         errorMessages.add(stacks[1].getClassName() + "." + stacks[1].getLineNumber() + ":" + position + ":" + message);
     }
 
-    public List<String> getErrorList() {
+    public List<String> getErrorMessages() {
         return errorMessages;
     }
 

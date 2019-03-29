@@ -3,18 +3,20 @@ package mxstar.AST;
 import java.util.*;
 
 public class AstFunctionDeclaration extends AstDeclaration {
-    public String funcName;
+    public AstType type;
+    public String name;
     public List<AstVariableDeclaration> parameters;
-    public List<AstStatement> funcBody;
+    public List<AstStatement> body;
 
     public AstFunctionDeclaration() {
-        funcName = null;
-        parameters = new LinkedList<AstVariableDeclaration>();
-        funcBody = new LinkedList<AstStatement>();
+        type = null;
+        name = null;
+        parameters = new LinkedList<>();
+        body = new LinkedList<>();
     }
 
     @Override
-    void accept(IAstVisitor visitor) {
+    public void accept(IAstVisitor visitor) {
         visitor.visit(this);
     }
 }
