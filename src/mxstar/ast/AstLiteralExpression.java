@@ -20,7 +20,7 @@ public class AstLiteralExpression extends AstExpression {
                 value = token.getText();
                 break;
             case NullLiteral:
-                type = new AstPrimitiveType("null");
+                type = new AstClassType("null");
                 value = token.getText();
                 break;
             default: // StringLiteral

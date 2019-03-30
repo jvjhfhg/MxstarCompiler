@@ -1,17 +1,11 @@
 package mxstar.ast;
 
-import java.util.*;
-
 public class AstIfStatement extends AstStatement {
     public AstExpression condition;
-    public List<AstStatement> ifBody;
-    public List<AstStatement> elseBody;
+    public AstStatement ifBody;
+    public AstStatement elseBody;
 
-    public AstIfStatement() {
-        condition = null;
-        ifBody = new LinkedList<>();
-        elseBody = new LinkedList<>();
-    }
+    public AstIfStatement() {}
     
     @Override
     public void accept(IAstVisitor visitor) {

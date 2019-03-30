@@ -1,14 +1,19 @@
 package mxstar.ast;
 
+import mxstar.symbol.StVariableSymbol;
+
 public class AstVariableDeclaration extends AstDeclaration {
     public AstType type;
     public String name;
     public AstExpression initValue;
 
-    public AstVariableDeclaration() {
-        type = null;
-        name = null;
-        initValue = null;
+    public StVariableSymbol symbol;
+
+    public AstVariableDeclaration() {}
+    public AstVariableDeclaration(AstType type, String name, AstExpression initValue) {
+        this.type = type;
+        this.name = name;
+        this.initValue = initValue;
     }
     
     @Override

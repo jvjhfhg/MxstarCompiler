@@ -1,5 +1,7 @@
 package mxstar.ast;
 
+import mxstar.symbol.StFunctionSymbol;
+
 import java.util.*;
 
 public class AstFunctionDeclaration extends AstDeclaration {
@@ -8,9 +10,9 @@ public class AstFunctionDeclaration extends AstDeclaration {
     public List<AstVariableDeclaration> parameters;
     public List<AstStatement> body;
 
+    public StFunctionSymbol symbol;
+
     public AstFunctionDeclaration() {
-        returnType = null;
-        name = null;
         parameters = new LinkedList<>();
         body = new LinkedList<>();
     }

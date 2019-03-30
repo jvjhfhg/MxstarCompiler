@@ -1,7 +1,7 @@
 package mxstar.ast;
 
 public class AstExprStatement extends AstStatement {
-    AstExpression expr;
+    public AstExpression expr;
     
     @Override
     public void accept(IAstVisitor visitor) {

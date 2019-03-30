@@ -110,7 +110,7 @@ public class AstBuilder extends MxstarBaseVisitor<Object> {
     public List<AstVariableDeclaration> visitParameterList(ParameterListContext ctx) {
         List<AstVariableDeclaration> parameterList = new LinkedList<>();
 
-        for (ParameterContext c: ctx.parameter()) {
+        for (ParameterContext c : ctx.parameter()) {
             AstVariableDeclaration parameter = new AstVariableDeclaration();
 
             parameter.position = new TokenPosition(c);
@@ -131,7 +131,7 @@ public class AstBuilder extends MxstarBaseVisitor<Object> {
         List<AstStatement> statementList = new LinkedList<>();
 
         if (ctx.statement() != null) {
-            for (StatementContext c: ctx.statement()) {
+            for (StatementContext c : ctx.statement()) {
                 if (c instanceof VarDeclStatementContext) {
                     statementList.addAll(visitVarDeclStatement((VarDeclStatementContext) c));
                 } else {
@@ -148,11 +148,11 @@ public class AstBuilder extends MxstarBaseVisitor<Object> {
         List<AstStatement> statementList = new LinkedList<>();
 
         List<AstVariableDeclaration> declarationList = visitVariableDeclaration(ctx.variableDeclaration());
-        for (AstVariableDeclaration decl: declarationList) {
+        for (AstVariableDeclaration d : declarationList) {
             AstVarDeclStatement statement = new AstVarDeclStatement();
 
-            statement.position = new TokenPosition(decl);
-            statement.declaration = decl;
+            statement.position = new TokenPosition(d);
+            statement.declaration = d;
 
             statementList.add(statement);
         }
@@ -191,7 +191,7 @@ public class AstBuilder extends MxstarBaseVisitor<Object> {
         List<AstVariableDeclaration> variableList = new LinkedList<>();
 
         AstType type = visitType(ctx.type());
-        for (VariableDeclaratorContext c: ctx.variableDeclarators().variableDeclarator()) {
+        for (VariableDeclaratorContext c : ctx.variableDeclarators().variableDeclarator()) {
             AstVariableDeclaration variable = visitVariableDeclarator(c);
             variable.type = type;
             variableList.add(variable);
@@ -246,7 +246,7 @@ public class AstBuilder extends MxstarBaseVisitor<Object> {
         astFunctionCallExpression.position = new TokenPosition(ctx);
         astFunctionCallExpression.name = ctx.Identifier().getSymbol().getText();
         if (ctx.expressionList() != null) {
-            for (ExpressionContext c: ctx.expressionList().expression()) {
+            for (ExpressionContext c : ctx.expressionList().expression()) {
                 astFunctionCallExpression.arguments.add((AstExpression) c.accept(this));
             }
         }
@@ -351,5 +351,90 @@ public class AstBuilder extends MxstarBaseVisitor<Object> {
         astAssignmentExpression.expr2 = (AstExpression) ctx.expression(1).accept(this);
 
         return astAssignmentExpression;
+    }
+
+    @Override
+    public AstBlockStatement visitBlockStatement(BlockStatementContext ctx) {
+        AstBlockStatement blockStatement = new AstBlockStatement();
+        blockStatement.position = new TokenPosition(ctx);
+        blockStatement.statements = visitStatementList(ctx.statementList());
+        return blockStatement;
+    }
+
+    @Override
+    public AstBreakStatement visitBreakStatment(BreakStatmentContext ctx) {
+        AstBreakStatement breakStatement = new AstBreakStatement();
+        breakStatement.position = new TokenPosition(ctx);
+        return breakStatement;
+    }
+
+    @Override
+    public AstContiStatement visitContiStatement(ContiStatementContext ctx) {
+        AstContiStatement contiStatement = new AstContiStatement();
+        contiStatement.position = new TokenPosition(ctx);
+        return contiStatement;
+    }
+
+    @Override
+    public AstEmptyStatement visitEmptyStatement(EmptyStatementContext ctx) {
+        AstEmptyStatement emptyStatement = new AstEmptyStatement();
+        emptyStatement.position = new TokenPosition(ctx);
+        return emptyStatement;
+    }
+
+    @Override
+    public AstExprStatement visitExprStatement(ExprStatementContext ctx) {
+        AstExprStatement exprStatement = new AstExprStatement();
+        exprStatement.position = new TokenPosition(ctx);
+        exprStatement.expr = (AstExpression) ctx.expression().accept(this);
+        return exprStatement;
+    }
+
+    @Override
+    public AstIfStatement visitIfStatement(IfStatementContext ctx) {
+        AstIfStatement ifStatement = new AstIfStatement();
+        ifStatement.position = new TokenPosition(ctx);
+        ifStatement.condition = (AstExpression) ctx.expression().accept(this);
+        ifStatement.ifBody = (AstStatement) ctx.statement(0).accept(this);
+        if (ctx.statement(1) != null) {
+            ifStatement.elseBody = (AstStatement) ctx.statement(1).accept(this);
+        }
+        return ifStatement;
+    }
+
+    @Override
+    public AstForStatement visitForStatement(ForStatementContext ctx) {
+        AstForStatement forStatement = new AstForStatement();
+        forStatement.position = new TokenPosition(ctx);
+        if (ctx.expression(0) != null) {
+            forStatement.expr1 = (AstExpression) ctx.expression(0).accept(this);
+        }
+        if (ctx.expression(1) != null) {
+            forStatement.expr2 = (AstExpression) ctx.expression(1).accept(this);
+        }
+        if (ctx.expression(2) != null) {
+            forStatement.expr3 = (AstExpression) ctx.expression(2).accept(this);
+        }
+        forStatement.body = (AstStatement) ctx.statement().accept(this);
+        return forStatement;
+    }
+
+    @Override
+    public AstWhileStatement visitWhileStatement(WhileStatementContext ctx) {
+        AstWhileStatement whileStatement = new AstWhileStatement();
+        whileStatement.position = new TokenPosition(ctx);
+        whileStatement.condition = (AstExpression) ctx.expression().accept(this);
+        whileStatement.body = (AstStatement) ctx.statement().accept(this);
+        return whileStatement;
+    }
+
+    @Override
+    public Object visitReturnStatement(ReturnStatementContext ctx) {
+        AstReturnStatement returnStatement = new AstReturnStatement();
+        returnStatement.position = new TokenPosition(ctx);
+        if (ctx.expression() != null) {
+            returnStatement.value = (AstExpression) ctx.expression().accept(this);
+        }
+        return returnStatement;
     }
 }

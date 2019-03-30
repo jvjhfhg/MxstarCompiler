@@ -1,5 +1,7 @@
 package mxstar.ast;
 
+import mxstar.symbol.StClassSymbol;
+
 import java.util.*;
 
 public class AstClassDeclaration extends AstDeclaration {
@@ -8,11 +10,11 @@ public class AstClassDeclaration extends AstDeclaration {
     public List<AstFunctionDeclaration> methods;
     public AstFunctionDeclaration constructor;
 
+    public StClassSymbol symbol;
+
     public AstClassDeclaration() {
-        name = null;
         fields = new LinkedList<>();
         methods = new LinkedList<>();
-        constructor = null;
     }
 
     @Override
