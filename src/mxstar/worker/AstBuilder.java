@@ -1,6 +1,6 @@
 package mxstar.worker;
 
-import mxstar.AST.*;
+import mxstar.ast.*;
 import mxstar.parser.MxstarBaseVisitor;
 import mxstar.parser.MxstarParser.*;
 import mxstar.exception.ErrorRecorder;
@@ -86,7 +86,7 @@ public class AstBuilder extends MxstarBaseVisitor<Object> {
 
         astFunctionDeclaration.position = new TokenPosition(ctx);
         astFunctionDeclaration.name = ctx.Identifier().getSymbol().getText();
-        astFunctionDeclaration.type = new AstPrimitiveType("void");
+        astFunctionDeclaration.returnType = new AstPrimitiveType("void");
         astFunctionDeclaration.parameters = visitParameterList(ctx.parameterList());
         astFunctionDeclaration.body = visitFunctionBody(ctx.functionBody());
 
@@ -99,7 +99,7 @@ public class AstBuilder extends MxstarBaseVisitor<Object> {
 
         astFunctionDeclaration.position = new TokenPosition(ctx);
         astFunctionDeclaration.name = ctx.Identifier().getSymbol().getText();
-        astFunctionDeclaration.type = visitType(ctx.type());
+        astFunctionDeclaration.returnType = visitType(ctx.type());
         astFunctionDeclaration.parameters = visitParameterList(ctx.parameterList());
         astFunctionDeclaration.body = visitFunctionBody(ctx.functionBody());
 

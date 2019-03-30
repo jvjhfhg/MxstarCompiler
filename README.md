@@ -40,5 +40,15 @@ AstNode
 ## Symbol Table
 
 ```
-TODO
+StBaseSymbol
+	StPrimitiveSymbol
+	StClassSymbol
+StVariableSymbol
+StFunctionSymbol
+StType
+	StPrimitiveType
+	StClassType
+	StArrayType
+StSymbolTable
+	StGlobalTable
 ```

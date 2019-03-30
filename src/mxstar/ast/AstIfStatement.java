@@ -1,4 +1,4 @@
-package mxstar.AST;
+package mxstar.ast;
 
 import java.util.*;
 

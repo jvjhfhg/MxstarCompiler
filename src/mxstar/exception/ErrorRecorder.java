@@ -1,6 +1,6 @@
 package mxstar.exception;
 
-import mxstar.AST.TokenPosition;
+import mxstar.ast.TokenPosition;
 
 import java.io.*;
 import java.util.*;

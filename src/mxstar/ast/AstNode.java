@@ -1,4 +1,4 @@
-package mxstar.AST;
+package mxstar.ast;
 
 public abstract class AstNode {
     public TokenPosition position;
