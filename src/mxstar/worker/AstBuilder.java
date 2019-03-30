@@ -87,7 +87,9 @@ public class AstBuilder extends MxstarBaseVisitor<Object> {
         astFunctionDeclaration.position = new TokenPosition(ctx);
         astFunctionDeclaration.name = ctx.Identifier().getSymbol().getText();
         astFunctionDeclaration.returnType = new AstPrimitiveType("void");
-        astFunctionDeclaration.parameters = visitParameterList(ctx.parameterList());
+        if (ctx.parameterList() != null) {
+            astFunctionDeclaration.parameters = visitParameterList(ctx.parameterList());
+        }
         astFunctionDeclaration.body = visitFunctionBody(ctx.functionBody());
 
         return astFunctionDeclaration;
@@ -100,7 +102,9 @@ public class AstBuilder extends MxstarBaseVisitor<Object> {
         astFunctionDeclaration.position = new TokenPosition(ctx);
         astFunctionDeclaration.name = ctx.Identifier().getSymbol().getText();
         astFunctionDeclaration.returnType = visitType(ctx.type());
-        astFunctionDeclaration.parameters = visitParameterList(ctx.parameterList());
+        if (ctx.parameterList() != null) {
+            astFunctionDeclaration.parameters = visitParameterList(ctx.parameterList());
+        }
         astFunctionDeclaration.body = visitFunctionBody(ctx.functionBody());
 
         return astFunctionDeclaration;
