@@ -5,6 +5,7 @@ import org.antlr.v4.runtime.Token;
 import static mxstar.parser.MxstarParser.*;
 
 public class AstLiteralExpression extends AstExpression {
+    public AstType type;
     public String value;
 
     public AstLiteralExpression(Token token) {
