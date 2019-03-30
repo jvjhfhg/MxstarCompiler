@@ -299,15 +299,16 @@ public class StBuilder implements IAstVisitor {
     public void visit(AstNewExpression node) {
         node.valueType = getStType(node.baseType);
         if (node.valueType == null) {
-            errorRecorder.add(node.position, "invalid array base type");
+            errorRecorder.add(node.position, "type was not declared");
             return;
         }
         if (node.baseType instanceof AstPrimitiveType && ((AstPrimitiveType) node.baseType).name.equals("void")) {
-            errorRecorder.add(node.position, "invalid array base type");
+            errorRecorder.add(node.position, "invalid type");
             return;
         }
-        for (AstExpression e : node.arguments) {
-            e.accept(this);
+        if (!node.arguments.isEmpty()) {
+            errorRecorder.add(node.position, "invalid constructor");
+            return;
         }
     }
 
@@ -406,6 +407,10 @@ public class StBuilder implements IAstVisitor {
         int dimension = node.indexes.size() + node.emptyDimCnt;
         node.valueType = getStType(node.baseType);
         if (node.valueType == null) {
+            errorRecorder.add(node.position, "invalid array base type");
+            return;
+        }
+        if (dimension == 0 && node.baseType instanceof AstPrimitiveType && ((AstPrimitiveType) node.baseType).name.equals("void")) {
             errorRecorder.add(node.position, "invalid array base type");
             return;
         }
