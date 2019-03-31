@@ -120,6 +120,8 @@ public class AstBuilder extends MxstarBaseVisitor<Object> {
             parameter.position = new TokenPosition(c);
             parameter.name = c.Identifier().getSymbol().getText();
             parameter.type = visitType(c.type());
+
+            parameterList.add(parameter);
         }
 
         return parameterList;
