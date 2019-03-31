@@ -2,7 +2,7 @@ package mxstar.ast;
 
 import java.util.*;
 
-public class AstBlockStatement extends AstNode {
+public class AstBlockStatement extends AstStatement {
     public List<AstStatement> statements;
 
     public AstBlockStatement() {
