@@ -115,7 +115,9 @@ public class StBuilder implements IAstVisitor {
     private void declareClassMethods(AstClassDeclaration classDeclaration) {
         StClassSymbol symbol = globalTable.getClassSymbol(classDeclaration.name);
         enter(symbol.symbolTable);
-        declareFunction(classDeclaration.constructor, symbol);
+        if (classDeclaration.constructor != null) {
+            declareFunction(classDeclaration.constructor, symbol);
+        }
         for (AstFunctionDeclaration d : classDeclaration.methods) {
             declareFunction(d, symbol);
         }
@@ -169,7 +171,9 @@ public class StBuilder implements IAstVisitor {
     private void defineClassMethods(AstClassDeclaration classDeclaration) {
         StClassSymbol symbol = globalTable.getClassSymbol(classDeclaration.name);
         enter(symbol.symbolTable);
-        defineFunction(classDeclaration.constructor, symbol);
+        if (classDeclaration.constructor != null) {
+            defineFunction(classDeclaration.constructor, symbol);
+        }
         for (AstFunctionDeclaration d : classDeclaration.methods) {
             defineFunction(d, symbol);
         }

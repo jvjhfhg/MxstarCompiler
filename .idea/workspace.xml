@@ -3,7 +3,8 @@
   <component name="ChangeListManager">
     <list default="true" id="a6475739-22fd-4819-aa36-79a81dfbbb8b" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/mxstar/worker/AstBuilder.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/mxstar/worker/AstBuilder.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/mxstar/worker/SemanticChecker.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/mxstar/worker/SemanticChecker.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/mxstar/worker/StBuilder.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/mxstar/worker/StBuilder.java" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -19,8 +20,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/mxstar/parser/Mxstar.g4">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1945">
-              <caret line="155" column="30" lean-forward="true" selection-start-line="155" selection-start-column="30" selection-end-line="155" selection-end-column="30" />
+            <state relative-caret-position="228">
+              <caret line="18" column="5" lean-forward="true" selection-start-line="18" selection-start-column="5" selection-end-line="18" selection-end-column="5" />
             </state>
           </provider>
         </entry>
@@ -38,30 +39,16 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/mxstar/worker/AstBuilder.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="726">
-              <caret line="123" column="41" selection-start-line="123" selection-start-column="41" selection-end-line="123" selection-end-column="41" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/mxstar/worker/SemanticChecker.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="3249">
-              <caret line="199" column="17" lean-forward="true" selection-start-line="199" selection-start-column="17" selection-end-line="199" selection-end-column="17" />
+            <state relative-caret-position="475">
+              <caret line="287" column="9" selection-start-line="287" selection-start-column="9" selection-end-line="287" selection-end-column="9" />
               <folding>
                 <element signature="imports" expanded="true" />
                 <element signature="e#539#540#0" expanded="true" />
                 <element signature="e#567#568#0" expanded="true" />
-                <element signature="e#8410#8411#0" expanded="true" />
-                <element signature="e#8455#8456#0" expanded="true" />
-                <element signature="e#8521#8522#0" expanded="true" />
-                <element signature="e#8557#8558#0" expanded="true" />
+                <element signature="e#8637#8638#0" expanded="true" />
+                <element signature="e#8739#8740#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -70,12 +57,17 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/mxstar/worker/StBuilder.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="285">
-              <caret line="194" column="49" selection-start-line="194" selection-start-column="49" selection-end-line="194" selection-end-column="49" />
+            <state relative-caret-position="418">
+              <caret line="117" column="49" lean-forward="true" selection-start-line="117" selection-start-column="49" selection-end-line="117" selection-end-column="49" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="e#10128#10129#0" expanded="true" />
-                <element signature="e#10155#10156#0" expanded="true" />
+                <element signature="e#9134#9135#0" expanded="true" />
+                <element signature="e#10305#10306#0" expanded="true" />
+                <element signature="e#10392#10393#0" expanded="true" />
+                <element signature="e#10480#10481#0" expanded="true" />
+                <element signature="e#11074#11075#0" expanded="true" />
+                <element signature="e#13229#13230#0" expanded="true" />
+                <element signature="e#14706#14707#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -211,10 +203,10 @@
         <option value="$PROJECT_DIR$/src/mxstar/ast/AstNewExpression.java" />
         <option value="$PROJECT_DIR$/src/mxstar/ast/AstBlockStatement.java" />
         <option value="$PROJECT_DIR$/src/mxstar/symbol/StGlobalTable.java" />
-        <option value="$PROJECT_DIR$/src/mxstar/parser/Mxstar.g4" />
-        <option value="$PROJECT_DIR$/src/mxstar/worker/SemanticChecker.java" />
-        <option value="$PROJECT_DIR$/src/mxstar/worker/StBuilder.java" />
         <option value="$PROJECT_DIR$/src/mxstar/worker/AstBuilder.java" />
+        <option value="$PROJECT_DIR$/src/mxstar/parser/Mxstar.g4" />
+        <option value="$PROJECT_DIR$/src/mxstar/worker/StBuilder.java" />
+        <option value="$PROJECT_DIR$/src/mxstar/worker/SemanticChecker.java" />
       </list>
     </option>
   </component>
@@ -497,7 +489,21 @@
       <option name="project" value="LOCAL" />
       <updated>1554003318048</updated>
     </task>
-    <option name="localTasksCounter" value="22" />
+    <task id="LOCAL-00022" summary="well...">
+      <created>1554008328856</created>
+      <option name="number" value="00022" />
+      <option name="presentableId" value="LOCAL-00022" />
+      <option name="project" value="LOCAL" />
+      <updated>1554008328856</updated>
+    </task>
+    <task id="LOCAL-00023" summary="g4 fixed">
+      <created>1554009023637</created>
+      <option name="number" value="00023" />
+      <option name="presentableId" value="LOCAL-00023" />
+      <option name="project" value="LOCAL" />
+      <updated>1554009023637</updated>
+    </task>
+    <option name="localTasksCounter" value="24" />
     <servers />
   </component>
   <component name="TodoView" selected-index="5">
@@ -558,7 +564,9 @@
     <MESSAGE value="fix a little mistake" />
     <MESSAGE value="fix problem with boolean expression" />
     <MESSAGE value="fix little mistakes" />
-    <option name="LAST_COMMIT_MESSAGE" value="fix little mistakes" />
+    <MESSAGE value="well..." />
+    <MESSAGE value="g4 fixed" />
+    <option name="LAST_COMMIT_MESSAGE" value="g4 fixed" />
   </component>
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/src/mxstar/exception/ErrorRecorder.java">
@@ -860,16 +868,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/mxstar/Compiler.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="285">
-          <caret line="15" column="13" selection-start-line="15" selection-start-column="13" selection-end-line="15" selection-end-column="13" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/mxstar/symbol/StVariableSymbol.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="114">
@@ -885,13 +883,6 @@
             <element signature="e#163#164#0" expanded="true" />
             <element signature="e#203#204#0" expanded="true" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/mxstar/parser/Mxstar.g4">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1945">
-          <caret line="155" column="30" lean-forward="true" selection-start-line="155" selection-start-column="30" selection-end-line="155" selection-end-column="30" />
         </state>
       </provider>
     </entry>
@@ -926,22 +917,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/mxstar/worker/SemanticChecker.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="3249">
-          <caret line="199" column="17" lean-forward="true" selection-start-line="199" selection-start-column="17" selection-end-line="199" selection-end-column="17" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#539#540#0" expanded="true" />
-            <element signature="e#567#568#0" expanded="true" />
-            <element signature="e#8410#8411#0" expanded="true" />
-            <element signature="e#8455#8456#0" expanded="true" />
-            <element signature="e#8521#8522#0" expanded="true" />
-            <element signature="e#8557#8558#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/mxstar/ast/AstFunctionCallExpression.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="114">
@@ -962,24 +937,60 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/mxstar/worker/StBuilder.java">
+    <entry file="file://$PROJECT_DIR$/src/mxstar/worker/AstBuilder.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="285">
-          <caret line="194" column="49" selection-start-line="194" selection-start-column="49" selection-end-line="194" selection-end-column="49" />
+        <state relative-caret-position="574">
+          <caret line="103" column="41" lean-forward="true" selection-start-line="103" selection-start-column="41" selection-end-line="103" selection-end-column="42" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#10128#10129#0" expanded="true" />
-            <element signature="e#10155#10156#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/mxstar/worker/AstBuilder.java">
+    <entry file="file://$PROJECT_DIR$/src/mxstar/Compiler.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="726">
-          <caret line="123" column="41" selection-start-line="123" selection-start-column="41" selection-end-line="123" selection-end-column="41" />
+        <state relative-caret-position="285">
+          <caret line="15" column="13" selection-start-line="15" selection-start-column="13" selection-end-line="15" selection-end-column="13" />
           <folding>
             <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/mxstar/parser/Mxstar.g4">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="228">
+          <caret line="18" column="5" lean-forward="true" selection-start-line="18" selection-start-column="5" selection-end-line="18" selection-end-column="5" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/mxstar/worker/StBuilder.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="418">
+          <caret line="117" column="49" lean-forward="true" selection-start-line="117" selection-start-column="49" selection-end-line="117" selection-end-column="49" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#9134#9135#0" expanded="true" />
+            <element signature="e#10305#10306#0" expanded="true" />
+            <element signature="e#10392#10393#0" expanded="true" />
+            <element signature="e#10480#10481#0" expanded="true" />
+            <element signature="e#11074#11075#0" expanded="true" />
+            <element signature="e#13229#13230#0" expanded="true" />
+            <element signature="e#14706#14707#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/mxstar/worker/SemanticChecker.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="475">
+          <caret line="287" column="9" selection-start-line="287" selection-start-column="9" selection-end-line="287" selection-end-column="9" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#539#540#0" expanded="true" />
+            <element signature="e#567#568#0" expanded="true" />
+            <element signature="e#8637#8638#0" expanded="true" />
+            <element signature="e#8739#8740#0" expanded="true" />
           </folding>
         </state>
       </provider>

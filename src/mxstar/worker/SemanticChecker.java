@@ -283,11 +283,13 @@ public class SemanticChecker implements IAstVisitor {
 
     @Override
     public void visit(AstClassDeclaration node) {
-        node.constructor.accept(this);
+        if (node.constructor != null) {
+            node.constructor.accept(this);
+        }
         for (AstFunctionDeclaration d : node.methods) {
             d.accept(this);
         }
-        if (!node.constructor.name.equals(node.name)) {
+        if (node.constructor != null && !node.constructor.name.equals(node.name)) {
             errorRecorder.add(node.position, "mismatched constructor name");
         }
     }
