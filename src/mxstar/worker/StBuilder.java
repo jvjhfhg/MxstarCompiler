@@ -305,10 +305,6 @@ public class StBuilder implements IAstVisitor {
             errorRecorder.add(node.position, "invalid type");
             return;
         }
-        if (!node.arguments.isEmpty()) {
-            errorRecorder.add(node.position, "invalid constructor");
-            return;
-        }
     }
 
     @Override
