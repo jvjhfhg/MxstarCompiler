@@ -1,5 +1,4 @@
 // Generated from Mxstar.g4 by ANTLR 4.7.2
-
 package mxstar.parser;
 
 import org.antlr.v4.runtime.ParserRuleContext;
@@ -221,13 +220,13 @@ public class MxstarBaseListener implements MxstarListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterBreakStatment(MxstarParser.BreakStatmentContext ctx) { }
+	@Override public void enterBreakStatement(MxstarParser.BreakStatementContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitBreakStatment(MxstarParser.BreakStatmentContext ctx) { }
+	@Override public void exitBreakStatement(MxstarParser.BreakStatementContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *

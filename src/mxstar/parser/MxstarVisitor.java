@@ -1,7 +1,5 @@
 // Generated from Mxstar.g4 by ANTLR 4.7.2
-
 package mxstar.parser;
-
 import org.antlr.v4.runtime.tree.ParseTreeVisitor;
 
 /**
@@ -121,12 +119,12 @@ public interface MxstarVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitForStatement(MxstarParser.ForStatementContext ctx);
 	/**
-	 * Visit a parse tree produced by the {@code BreakStatment}
+	 * Visit a parse tree produced by the {@code BreakStatement}
 	 * labeled alternative in {@link MxstarParser#statement}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitBreakStatment(MxstarParser.BreakStatmentContext ctx);
+	T visitBreakStatement(MxstarParser.BreakStatementContext ctx);
 	/**
 	 * Visit a parse tree produced by the {@code ContiStatement}
 	 * labeled alternative in {@link MxstarParser#statement}.

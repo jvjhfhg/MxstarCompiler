@@ -62,7 +62,7 @@ statement
     |   FOR '(' expression? ';' expression? ';' expression? ')' statement
         # ForStatement
     |   BREAK ';'
-        # BreakStatment
+        # BreakStatement
     |   CONTINUE ';'
         # ContiStatement
     |   RETURN expression? ';'
@@ -76,7 +76,7 @@ variableDeclaration
     ;
 
 variableDeclarators
-    :   variableDeclarator (',' variableDeclarator)?
+    :   variableDeclarator (',' variableDeclarator)*
     ;
 
 variableDeclarator

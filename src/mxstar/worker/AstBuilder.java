@@ -25,7 +25,7 @@ public class AstBuilder extends MxstarBaseVisitor<Object> {
 
     @Override
     public Object visitCompilationUnit(CompilationUnitContext ctx) {
-        for (GlobalDeclarationContext c: ctx.globalDeclaration()) {
+        for (GlobalDeclarationContext c : ctx.globalDeclaration()) {
             if (c.classDeclaration() != null) {
                 astProgram.classes.add(visitClassDeclaration(c.classDeclaration()));
             } else if (c.functionDeclaration() != null) {
@@ -155,7 +155,7 @@ public class AstBuilder extends MxstarBaseVisitor<Object> {
         for (AstVariableDeclaration d : declarationList) {
             AstVarDeclStatement statement = new AstVarDeclStatement();
 
-            statement.position = new TokenPosition(d);
+            statement.position = d.position;
             statement.declaration = d;
 
             statementList.add(statement);
@@ -366,7 +366,7 @@ public class AstBuilder extends MxstarBaseVisitor<Object> {
     }
 
     @Override
-    public AstBreakStatement visitBreakStatment(BreakStatmentContext ctx) {
+    public AstBreakStatement visitBreakStatement(BreakStatementContext ctx) {
         AstBreakStatement breakStatement = new AstBreakStatement();
         breakStatement.position = new TokenPosition(ctx);
         return breakStatement;

@@ -1,7 +1,5 @@
 // Generated from Mxstar.g4 by ANTLR 4.7.2
-
 package mxstar.parser;
-
 import org.antlr.v4.runtime.tree.ParseTreeListener;
 
 /**
@@ -192,17 +190,17 @@ public interface MxstarListener extends ParseTreeListener {
 	 */
 	void exitForStatement(MxstarParser.ForStatementContext ctx);
 	/**
-	 * Enter a parse tree produced by the {@code BreakStatment}
+	 * Enter a parse tree produced by the {@code BreakStatement}
 	 * labeled alternative in {@link MxstarParser#statement}.
 	 * @param ctx the parse tree
 	 */
-	void enterBreakStatment(MxstarParser.BreakStatmentContext ctx);
+	void enterBreakStatement(MxstarParser.BreakStatementContext ctx);
 	/**
-	 * Exit a parse tree produced by the {@code BreakStatment}
+	 * Exit a parse tree produced by the {@code BreakStatement}
 	 * labeled alternative in {@link MxstarParser#statement}.
 	 * @param ctx the parse tree
 	 */
-	void exitBreakStatment(MxstarParser.BreakStatmentContext ctx);
+	void exitBreakStatement(MxstarParser.BreakStatementContext ctx);
 	/**
 	 * Enter a parse tree produced by the {@code ContiStatement}
 	 * labeled alternative in {@link MxstarParser#statement}.
