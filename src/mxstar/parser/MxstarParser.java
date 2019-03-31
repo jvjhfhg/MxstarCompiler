@@ -961,6 +961,9 @@ public class MxstarParser extends Parser {
 		}
 	}
 	public static class ForStatementContext extends StatementContext {
+		public ExpressionContext initExpr;
+		public ExpressionContext condition;
+		public ExpressionContext stepExpr;
 		public TerminalNode FOR() { return getToken(MxstarParser.FOR, 0); }
 		public StatementContext statement() {
 			return getRuleContext(StatementContext.class,0);
@@ -1104,7 +1107,7 @@ public class MxstarParser extends Parser {
 				if ((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << T__3) | (1L << T__10) | (1L << T__11) | (1L << T__12) | (1L << T__13) | (1L << T__14) | (1L << T__15) | (1L << NEW) | (1L << THIS) | (1L << BoolLiteral) | (1L << NullLiteral) | (1L << IntegralLiteral) | (1L << StringLiteral) | (1L << Identifier))) != 0)) {
 					{
 					setState(142);
-					expression(0);
+					((ForStatementContext)_localctx).initExpr = expression(0);
 					}
 				}
 
@@ -1116,7 +1119,7 @@ public class MxstarParser extends Parser {
 				if ((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << T__3) | (1L << T__10) | (1L << T__11) | (1L << T__12) | (1L << T__13) | (1L << T__14) | (1L << T__15) | (1L << NEW) | (1L << THIS) | (1L << BoolLiteral) | (1L << NullLiteral) | (1L << IntegralLiteral) | (1L << StringLiteral) | (1L << Identifier))) != 0)) {
 					{
 					setState(146);
-					expression(0);
+					((ForStatementContext)_localctx).condition = expression(0);
 					}
 				}
 
@@ -1128,7 +1131,7 @@ public class MxstarParser extends Parser {
 				if ((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << T__3) | (1L << T__10) | (1L << T__11) | (1L << T__12) | (1L << T__13) | (1L << T__14) | (1L << T__15) | (1L << NEW) | (1L << THIS) | (1L << BoolLiteral) | (1L << NullLiteral) | (1L << IntegralLiteral) | (1L << StringLiteral) | (1L << Identifier))) != 0)) {
 					{
 					setState(150);
-					expression(0);
+					((ForStatementContext)_localctx).stepExpr = expression(0);
 					}
 				}
 

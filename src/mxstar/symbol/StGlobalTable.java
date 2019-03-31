@@ -56,11 +56,11 @@ public class StGlobalTable extends StSymbolTable {
         stringSymbol.name = "string";
         stringSymbol.position = new TokenPosition(0, 0);
         stringSymbol.symbolTable = new StSymbolTable(this);
+        putClassSymbol("string", stringSymbol);
         stringSymbol.symbolTable.putFunctionSymbol("length", stringLength());
         stringSymbol.symbolTable.putFunctionSymbol("substring", stringSubstring());
         stringSymbol.symbolTable.putFunctionSymbol("parseInt", stringParseInt());
         stringSymbol.symbolTable.putFunctionSymbol("ord", stringOrd());
-        putClassSymbol("string", stringSymbol);
     }
 
     private StFunctionSymbol stringLength() {
@@ -173,8 +173,8 @@ public class StGlobalTable extends StSymbolTable {
 
     private void addDefaultSymbols() {
         addDefaultPrimitiveTypes();
-        addDefaultString();
         addDefaultNull();
+        addDefaultString();
         addDefaultFunctions();
     }
 }

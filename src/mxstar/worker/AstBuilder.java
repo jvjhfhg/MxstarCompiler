@@ -407,14 +407,14 @@ public class AstBuilder extends MxstarBaseVisitor<Object> {
     public AstForStatement visitForStatement(ForStatementContext ctx) {
         AstForStatement forStatement = new AstForStatement();
         forStatement.position = new TokenPosition(ctx);
-        if (ctx.expression(0) != null) {
-            forStatement.expr1 = (AstExpression) ctx.expression(0).accept(this);
+        if (ctx.initExpr != null) {
+            forStatement.expr1 = (AstExpression) ctx.initExpr.accept(this);
         }
-        if (ctx.expression(1) != null) {
-            forStatement.expr2 = (AstExpression) ctx.expression(1).accept(this);
+        if (ctx.condition != null) {
+            forStatement.expr2 = (AstExpression) ctx.condition.accept(this);
         }
-        if (ctx.expression(2) != null) {
-            forStatement.expr3 = (AstExpression) ctx.expression(2).accept(this);
+        if (ctx.stepExpr != null) {
+            forStatement.expr3 = (AstExpression) ctx.stepExpr.accept(this);
         }
         forStatement.body = (AstStatement) ctx.statement().accept(this);
         return forStatement;

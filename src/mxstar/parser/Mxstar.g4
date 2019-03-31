@@ -59,7 +59,7 @@ statement
         # IfStatement
     |   WHILE '(' expression ')' statement
         # WhileStatement
-    |   FOR '(' expression? ';' expression? ';' expression? ')' statement
+    |   FOR '(' initExpr = expression? ';' condition = expression? ';' stepExpr = expression? ')' statement
         # ForStatement
     |   BREAK ';'
         # BreakStatement
