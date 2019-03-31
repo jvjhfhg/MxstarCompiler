@@ -126,7 +126,7 @@ expression
         # ArrayIndexExpression
     |   NEW atomType ('[' expression ']')* ('[' empty ']')*
         # NewArrayExpression
-    |   NEW atomType '(' expressionList? ')'
+    |   NEW atomType '(' empty ')'
         # NewExpression
     |   <assoc = right> opt = ('++' | '--' | '+' | '-' | '!' | '~') expression
         # UnaryExpression

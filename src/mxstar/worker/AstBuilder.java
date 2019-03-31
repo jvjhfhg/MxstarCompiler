@@ -303,11 +303,6 @@ public class AstBuilder extends MxstarBaseVisitor<Object> {
 
         astNewExpression.position = new TokenPosition(ctx);
         astNewExpression.baseType = visitAtomType(ctx.atomType());
-        if (ctx.expressionList() != null) {
-            for (ExpressionContext c : ctx.expressionList().expression()) {
-                astNewExpression.arguments.add((AstExpression) c.accept(this));
-            }
-        }
 
         return astNewExpression;
     }

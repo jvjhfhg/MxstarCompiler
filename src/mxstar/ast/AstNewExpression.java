@@ -4,12 +4,8 @@ import java.util.*;
 
 public class AstNewExpression extends AstExpression {
     public AstType baseType;
-    public List<AstExpression> arguments;
 
-    public AstNewExpression() {
-        baseType = null;
-        arguments = new LinkedList<>();
-    }
+    public AstNewExpression() {}
     
     @Override
     public void accept(IAstVisitor visitor) {
