@@ -234,9 +234,9 @@ public class SemanticChecker implements IAstVisitor {
             errorRecorder.add(node.position, "mismatched type");
         } else {
             boolean typeError = false;
-            boolean isInt = isIntType(node.valueType);
-            boolean isBool = isBoolType(node.valueType);
-            boolean isString = isStringType(node.valueType);
+            boolean isInt = isIntType(node.expr1.valueType);
+            boolean isBool = isBoolType(node.expr1.valueType);
+            boolean isString = isStringType(node.expr1.valueType);
             switch (node.opt) {
                 case "-":
                 case "*":
