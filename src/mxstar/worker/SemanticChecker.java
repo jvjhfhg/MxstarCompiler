@@ -195,12 +195,13 @@ public class SemanticChecker implements IAstVisitor {
         switch (node.opt) {
             case "++":
             case "--":
-                if (!node.mutable) {
+                if (!node.expr.mutable) {
                     mutableError = true;
                 }
                 if (!isInt) {
                     typeError = true;
                 }
+                node.mutable = true;
                 break;
             case "+":
             case "-":
@@ -230,6 +231,7 @@ public class SemanticChecker implements IAstVisitor {
     public void visit(AstBinaryExpression node) {
         node.expr1.accept(this);
         node.expr2.accept(this);
+        node.mutable = false;
         if (!node.expr1.valueType.match(node.expr2.valueType)) {
             errorRecorder.add(node.position, "mismatched type");
         } else {
@@ -388,6 +390,7 @@ public class SemanticChecker implements IAstVisitor {
     @Override
     public void visit(AstPostfixIncDecExpression node) {
         node.expr.accept(this);
+        node.mutable = false;
         boolean mutableError = false;
         boolean typeError = false;
         boolean isInt = isIntType(node.expr.valueType);
