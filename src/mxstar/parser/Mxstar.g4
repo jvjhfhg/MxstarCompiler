@@ -124,7 +124,7 @@ expression
         # FunctionCallExpression
     |   expression '[' expression ']'
         # ArrayIndexExpression
-    |   NEW atomType ('[' expression ']')* ('[' empty ']')*
+    |   NEW atomType ('[' expression ']')+ ('[' empty ']')*
         # NewArrayExpression
     |   NEW atomType '(' empty ')'
         # NewExpression

@@ -54,7 +54,7 @@ public class StBuilder implements IAstVisitor {
                 baseType = new StArrayType(getStType(tmp));
             }
             if (baseType != null) {
-                return new StArrayType(baseType);
+                return baseType;
             } else {
                 return null;
             }
