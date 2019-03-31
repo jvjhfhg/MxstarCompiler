@@ -42,7 +42,7 @@ public class StBuilder implements IAstVisitor {
         } else if (node instanceof AstArrayType) {
             StType baseType;
             if (((AstArrayType) node).dimension == 1) {
-                baseType = getStType(((AstArrayType) node).baseType);
+                baseType = new StArrayType(getStType(((AstArrayType) node).baseType));
                 if (((AstArrayType) node).baseType instanceof AstPrimitiveType && ((AstPrimitiveType) ((AstArrayType) node).baseType).name.equals("void")) {
                     errorRecorder.add(node.position, "invalid array base type");
                     return null;
@@ -51,7 +51,7 @@ public class StBuilder implements IAstVisitor {
                 AstArrayType tmp = new AstArrayType();
                 tmp.baseType = ((AstArrayType) node).baseType;
                 tmp.dimension = ((AstArrayType) node).dimension - 1;
-                baseType = getStType(tmp);
+                baseType = new StArrayType(getStType(tmp));
             }
             if (baseType != null) {
                 return new StArrayType(baseType);
@@ -109,6 +109,7 @@ public class StBuilder implements IAstVisitor {
         symbol.position = classDeclaration.position;
         symbol.symbolTable = new StSymbolTable(globalTable);
         globalTable.putClassSymbol(classDeclaration.name, symbol);
+        classDeclaration.symbol = symbol;
     }
 
     private void declareClassMethods(AstClassDeclaration classDeclaration) {
@@ -149,6 +150,7 @@ public class StBuilder implements IAstVisitor {
                 errorRecorder.add(d.position, "invalid parameter type");
                 return;
             }
+            symbol.parameterTypes.add(type);
             symbol.parameterNames.add(d.name);
         }
         functionDeclaration.symbol = symbol;
