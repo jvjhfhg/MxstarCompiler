@@ -394,7 +394,7 @@ public class SemanticChecker implements IAstVisitor {
         boolean mutableError = false;
         boolean typeError = false;
         boolean isInt = isIntType(node.expr.valueType);
-        if (!node.mutable) {
+        if (!node.expr.mutable) {
             mutableError = true;
         }
         if (!isInt) {

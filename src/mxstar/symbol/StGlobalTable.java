@@ -165,7 +165,9 @@ public class StGlobalTable extends StSymbolTable {
         StFunctionSymbol symbol = new StFunctionSymbol();
         symbol.name = "toString";
         symbol.position = new TokenPosition(0, 0);
-        symbol.returnType = voidType();
+        symbol.returnType = stringType();
+        symbol.parameterTypes.add(intType());
+        symbol.parameterNames.add("i");
         return symbol;
     }
 
