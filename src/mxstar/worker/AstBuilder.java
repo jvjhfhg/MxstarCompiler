@@ -27,11 +27,11 @@ public class AstBuilder extends MxstarBaseVisitor<Object> {
     public Object visitCompilationUnit(CompilationUnitContext ctx) {
         for (GlobalDeclarationContext c : ctx.globalDeclaration()) {
             if (c.classDeclaration() != null) {
-                astProgram.classes.add(visitClassDeclaration(c.classDeclaration()));
+                astProgram.add(visitClassDeclaration(c.classDeclaration()));
             } else if (c.functionDeclaration() != null) {
-                astProgram.functions.add(visitFunctionDeclaration(c.functionDeclaration()));
+                astProgram.add(visitFunctionDeclaration(c.functionDeclaration()));
             } else { //
-                astProgram.variables.addAll(visitVariableDeclaration(c.variableDeclaration()));
+                astProgram.addAll(visitVariableDeclaration(c.variableDeclaration()));
             }
         }
         return null;

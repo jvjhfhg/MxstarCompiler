@@ -264,7 +264,7 @@ public class StBuilder implements IAstVisitor {
 
     @Override
     public void visit(AstExpression node) {
-
+        assert false;
     }
 
     @Override
