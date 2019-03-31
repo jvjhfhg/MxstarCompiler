@@ -190,8 +190,8 @@ public class SemanticChecker implements IAstVisitor {
         node.expr.accept(this);
         boolean mutableError = false;
         boolean typeError = false;
-        boolean isInt = isIntType(node.valueType);
-        boolean isBool = isBoolType(node.valueType);
+        boolean isInt = isIntType(node.expr.valueType);
+        boolean isBool = isBoolType(node.expr.valueType);
         switch (node.opt) {
             case "++":
             case "--":
@@ -390,7 +390,7 @@ public class SemanticChecker implements IAstVisitor {
         node.expr.accept(this);
         boolean mutableError = false;
         boolean typeError = false;
-        boolean isInt = isIntType(node.valueType);
+        boolean isInt = isIntType(node.expr.valueType);
         if (!node.mutable) {
             mutableError = true;
         }
