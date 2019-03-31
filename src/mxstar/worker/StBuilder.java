@@ -362,10 +362,17 @@ public class StBuilder implements IAstVisitor {
     public void visit(AstBinaryExpression node) {
         node.expr1.accept(this);
         node.expr2.accept(this);
-        if (node.opt.equals("==") || node.opt.equals("!=") || node.opt.equals("<=") || node.opt.equals(">=") || node.opt.equals("<") || node.opt.equals(">")) {
-            node.valueType = new StPrimitiveType("bool", globalTable.getPrimitiveSymbol("bool"));
-        } else {
-            node.valueType = node.expr1.valueType;
+        switch (node.opt) {
+            case "==":
+            case "!=":
+            case "<=":
+            case ">=":
+            case "<":
+            case ">":
+                node.valueType = new StPrimitiveType("bool", globalTable.getPrimitiveSymbol("bool"));
+                break;
+            default:
+                node.valueType = node.expr1.valueType;
         }
     }
 
