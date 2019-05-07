@@ -5,10 +5,10 @@ import mxstar.symbol.*;
 import mxstar.exception.ErrorRecorder;
 
 public class SemanticChecker implements IAstVisitor {
-    ErrorRecorder errorRecorder;
-    StGlobalTable globalTable;
-    StFunctionSymbol currentFunction;
-    int loopCount;
+    public ErrorRecorder errorRecorder;
+    public StGlobalTable globalTable;
+    public StFunctionSymbol currentFunction;
+    public int loopCount;
 
     public SemanticChecker(ErrorRecorder errorRecorder, StGlobalTable globalTable) {
         this.errorRecorder = errorRecorder;
