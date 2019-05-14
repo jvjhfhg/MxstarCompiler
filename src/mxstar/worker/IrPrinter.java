@@ -28,6 +28,7 @@ public class IrPrinter implements IIrVisitor {
     private boolean inLeaInst;
 
     public IrPrinter() {
+        stringBuilder = new StringBuilder();
         basicBlockNames = new HashMap<>();
         virtualRegisterNames = new HashMap<>();
         stackSlotNames = new HashMap<>();
@@ -115,7 +116,7 @@ public class IrPrinter implements IIrVisitor {
     @Override
     public void visit(IrProgram program) {
         try {
-            BufferedReader bufferedReader = new BufferedReader(new FileReader("/lib/c2nasm/lib.asm"));
+            BufferedReader bufferedReader = new BufferedReader(new FileReader("./lib/c2nasm/lib.asm"));
             String line;
             while ((line = bufferedReader.readLine()) != null) {
                 appendln(line);
