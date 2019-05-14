@@ -23,4 +23,9 @@ public class StClassType extends StType {
             return false;
         }
     }
+
+    @Override
+    public int getByte() {
+        return symbol.symbolTable.variables.values().size() * 8;
+    }
 }

@@ -6,6 +6,7 @@ import static mxstar.parser.MxstarParser.*;
 
 public class AstLiteralExpression extends AstExpression {
     public AstType type;
+    public String typeName;
     public String value;
 
     public AstLiteralExpression(Token token) {
@@ -13,18 +14,22 @@ public class AstLiteralExpression extends AstExpression {
         switch (token.getType()) {
             case IntegralLiteral:
                 type = new AstPrimitiveType("int");
+                typeName = "int";
                 value = token.getText();
                 break;
             case BoolLiteral:
                 type = new AstPrimitiveType("bool");
+                typeName = "bool";
                 value = token.getText();
                 break;
             case NullLiteral:
                 type = new AstClassType("null");
+                typeName = "null";
                 value = token.getText();
                 break;
             default: // StringLiteral
                 type = new AstClassType("string");
+                typeName = "string";
                 value = escape(token.getText());
         }
     }

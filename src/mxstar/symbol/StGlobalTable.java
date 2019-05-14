@@ -2,17 +2,20 @@ package mxstar.symbol;
 
 import mxstar.ast.TokenPosition;
 
+import java.util.HashSet;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
 public class StGlobalTable extends StSymbolTable {
     public Map<String, StClassSymbol> classes;
     public Map<String, StPrimitiveSymbol> primitives;
+    public HashSet<StVariableSymbol> globalInitVariables;
 
     public StGlobalTable() {
         super(null);
         classes = new LinkedHashMap<>();
         primitives = new LinkedHashMap<>();
+        globalInitVariables = new HashSet<>();
 
         addDefaultSymbols();
     }

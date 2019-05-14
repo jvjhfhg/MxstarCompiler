@@ -18,4 +18,9 @@ public class StArrayType extends StType {
             return false;
         }
     }
+
+    @Override
+    public int getByte() {
+        return 8;
+    }
 }

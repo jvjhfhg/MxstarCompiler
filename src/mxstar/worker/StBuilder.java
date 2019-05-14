@@ -4,16 +4,22 @@ import mxstar.ast.*;
 import mxstar.symbol.*;
 import mxstar.exception.ErrorRecorder;
 
+import java.util.HashMap;
+
 public class StBuilder implements IAstVisitor {
     public ErrorRecorder errorRecorder;
     public StGlobalTable globalTable;
     public StSymbolTable currentSymbolTable;
     private String name;
+    public HashMap<StSymbolTable, StClassSymbol> symbolTableToClassSymbol;
+    private StFunctionSymbol currentFunction;
 
     public StBuilder(ErrorRecorder errorRecorder) {
         this.errorRecorder = errorRecorder;
         this.globalTable = new StGlobalTable();
         this.currentSymbolTable = globalTable;
+        this.symbolTableToClassSymbol = new HashMap<>();
+        this.currentFunction = null;
     }
 
     private void enter(StSymbolTable symbolTable) {
@@ -110,6 +116,7 @@ public class StBuilder implements IAstVisitor {
         symbol.symbolTable = new StSymbolTable(globalTable);
         globalTable.putClassSymbol(classDeclaration.name, symbol);
         classDeclaration.symbol = symbol;
+        symbolTableToClassSymbol.put(symbol.symbolTable, symbol);
     }
 
     private void declareClassMethods(AstClassDeclaration classDeclaration) {
@@ -135,6 +142,7 @@ public class StBuilder implements IAstVisitor {
         }
         StFunctionSymbol symbol = new StFunctionSymbol();
         symbol.name = functionDeclaration.name;
+        symbol.isGlobal = (classSymbol == null);
         symbol.position = functionDeclaration.position;
         symbol.returnType = getStType(functionDeclaration.returnType);
         if (symbol.returnType == null) {
@@ -182,6 +190,7 @@ public class StBuilder implements IAstVisitor {
 
     private void defineFunction(AstFunctionDeclaration functionDeclaration, StClassSymbol classSymbol) {
         StFunctionSymbol symbol = currentSymbolTable.getFunctionSymbol(functionDeclaration.name);
+        currentFunction = symbol;
         symbol.symbolTable = new StSymbolTable(currentSymbolTable);
         enter(symbol.symbolTable);
         if (classSymbol != null) {
@@ -194,6 +203,7 @@ public class StBuilder implements IAstVisitor {
             s.accept(this);
         }
         leave();
+        currentFunction = null;
     }
 
     private void defineVariable(AstVariableDeclaration variableDeclaration) {
@@ -211,8 +221,15 @@ public class StBuilder implements IAstVisitor {
                     errorRecorder.add(variableDeclaration.position, "invalid variable type");
                     return;
                 }
+                boolean isClassField = symbolTableToClassSymbol.containsKey(currentSymbolTable);
+                boolean isGlobal = (currentSymbolTable == globalTable);
                 variableDeclaration.symbol = new StVariableSymbol(variableDeclaration.name, type, variableDeclaration.position);
+                variableDeclaration.symbol.isClassField = isClassField;
+                variableDeclaration.symbol.isGlobal = isGlobal;
                 currentSymbolTable.putVariableSymbol(variableDeclaration.name, variableDeclaration.symbol);
+                if (isGlobal && variableDeclaration.initValue != null) {
+                    globalTable.globalInitVariables.add(variableDeclaration.symbol);
+                }
             }
         } else {
             errorRecorder.add(variableDeclaration.position, "invalid variable type");
@@ -460,6 +477,13 @@ public class StBuilder implements IAstVisitor {
         }
         node.symbol = symbol;
         node.valueType = symbol.type;
+        if (symbol.isGlobal) {
+            if (currentFunction != null) {
+                currentFunction.usedGlobalVariables.add(symbol);
+            } else {
+                globalTable.globalInitVariables.add(symbol);
+            }
+        }
     }
 
     @Override
