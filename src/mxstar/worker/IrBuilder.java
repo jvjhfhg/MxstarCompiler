@@ -7,7 +7,6 @@ import mxstar.ir.IrProgram;
 import mxstar.ir.instruction.*;
 import mxstar.ir.operand.*;
 import mxstar.symbol.*;
-import sun.plugin2.message.StopAppletAckMessage;
 
 import java.util.HashMap;
 import java.util.HashSet;
