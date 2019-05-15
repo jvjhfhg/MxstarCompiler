@@ -190,7 +190,7 @@ public class RegisterAllocator {
             graph = new Graph(originalGraph);
             init();
             do {
-                if (!spillWorklist.isEmpty()) {
+                if (!simplifyWorklist.isEmpty()) {
                     simplify();
                 } else if (!spillWorklist.isEmpty()) {
                     spill();

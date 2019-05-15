@@ -59,7 +59,7 @@ public class IrBinaryInstruction extends IrInstruction {
         }
         if (dest instanceof IrMemory) {
             regs.addAll(((IrMemory) dest).getUsedRegs());
-        } else if (src instanceof IrRegister) {
+        } else if (dest instanceof IrRegister) {
             regs.add((IrRegister) dest);
         }
         if (opt == IrBinaryOpt.MUL) {

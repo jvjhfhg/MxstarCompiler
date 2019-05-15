@@ -16,7 +16,7 @@ import java.util.function.BiConsumer;
 
 public class LivenessAnalyzer {
     public static class Graph {
-        HashMap<IrVirtualRegister, HashSet<IrVirtualRegister>> G;
+        private HashMap<IrVirtualRegister, HashSet<IrVirtualRegister>> G;
 
         Graph() {
             G = new HashMap<>();
@@ -106,7 +106,7 @@ public class LivenessAnalyzer {
         }
     }
 
-    private LinkedList<IrVirtualRegister> trans(LinkedList<IrRegister> regs) {
+    private LinkedList<IrVirtualRegister> trans(Collection<IrRegister> regs) {
         LinkedList<IrVirtualRegister> ret = new LinkedList<>();
         for (IrRegister reg : regs) {
             ret.add((IrVirtualRegister) reg);

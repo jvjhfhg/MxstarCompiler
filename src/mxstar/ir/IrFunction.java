@@ -174,7 +174,7 @@ public class IrFunction {
                 }
                 if (instruction instanceof IrCall) {
                     usedPhysicalRegisters.addAll(callerSave);
-                } else if (instruction instanceof IrBinaryInstruction && !isSpecialBinaryOpt(((IrBinaryInstruction) instruction).opt)) {
+                } else if (instruction instanceof IrBinaryInstruction && isSpecialBinaryOpt(((IrBinaryInstruction) instruction).opt)) {
                     if (((IrBinaryInstruction) instruction).src instanceof IrRegister) {
                         usedPhysicalRegisters.add((IrPhysicalRegister) ((IrBinaryInstruction) instruction).src);
                     }

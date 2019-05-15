@@ -160,7 +160,7 @@ public class IrPrinter implements IIrVisitor {
     @Override
     public void visit(IrFunction function) {
         appendln(getFunctionName(function) + ":");
-        ArrayList<IrBasicBlock> basicBlocks = new ArrayList<>(function.basicBlocks);
+        ArrayList<IrBasicBlock> basicBlocks = new ArrayList<>(function.reversePostOrder);
         for (int i = 0; i < basicBlocks.size(); ++i) {
             if (i == basicBlocks.size() - 1) {
                 nextBasicBlock = null;
@@ -189,11 +189,13 @@ public class IrPrinter implements IIrVisitor {
             append(indentedInst("imul", true));
             instruction.src.accept(this);
             appendln();
+            return;
         }
         if (instruction.opt == IrBinaryInstruction.IrBinaryOpt.DIV) {
             append(indentedInst("div", true));
             instruction.src.accept(this);
             appendln();
+            return;
         }
 
         String opt = null;

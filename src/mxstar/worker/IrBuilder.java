@@ -21,7 +21,7 @@ public class IrBuilder implements IAstVisitor {
     private StGlobalTable globalTable;
 
     private IrBasicBlock currentBasicBlock;
-    private Stack<IrBasicBlock> loopConditionBlock;
+    private Stack<IrBasicBlock> loopUpdateBlock;
     private Stack<IrBasicBlock> loopAfterBlock;
     private IrFunction currentFunction;
     private StClassSymbol currentClassSymbol;
@@ -45,7 +45,7 @@ public class IrBuilder implements IAstVisitor {
         this.currentBasicBlock = null;
         this.globalTable = globalTable;
         this.program = new IrProgram();
-        this.loopConditionBlock = new Stack<>();
+        this.loopUpdateBlock = new Stack<>();
         this.loopAfterBlock = new Stack<>();
         this.currentFunction = null;
         this.currentClassSymbol = null;
@@ -294,7 +294,7 @@ public class IrBuilder implements IAstVisitor {
         IrBasicBlock updateBlock = (node.expr3 != null ? new IrBasicBlock(currentFunction, "forUpdateBlock") : conditionBlock);
 
         currentBasicBlock.append(new IrJump(currentBasicBlock, conditionBlock));
-        loopConditionBlock.push(conditionBlock);
+        loopUpdateBlock.push(updateBlock);
         loopAfterBlock.push(afterBlock);
 
         if (node.expr2 != null) {
@@ -316,7 +316,7 @@ public class IrBuilder implements IAstVisitor {
 
         currentBasicBlock = afterBlock;
         loopAfterBlock.pop();
-        loopConditionBlock.pop();
+        loopUpdateBlock.pop();
     }
 
     @Override
@@ -397,7 +397,7 @@ public class IrBuilder implements IAstVisitor {
 
     @Override
     public void visit(AstContiStatement node) {
-        currentBasicBlock.append(new IrJump(currentBasicBlock, loopConditionBlock.peek()));
+        currentBasicBlock.append(new IrJump(currentBasicBlock, loopUpdateBlock.peek()));
     }
 
     @Override
@@ -412,7 +412,7 @@ public class IrBuilder implements IAstVisitor {
         IrBasicBlock afterBlock = new IrBasicBlock(currentFunction, "whileAfterBlock");
 
         currentBasicBlock.append(new IrJump(currentBasicBlock, conditionBlock));
-        loopConditionBlock.push(conditionBlock);
+        loopUpdateBlock.push(conditionBlock);
         loopAfterBlock.push(afterBlock);
 
         currentBasicBlock = conditionBlock;
@@ -425,7 +425,7 @@ public class IrBuilder implements IAstVisitor {
         currentBasicBlock.append(new IrJump(currentBasicBlock, conditionBlock));
 
         currentBasicBlock = afterBlock;
-        loopConditionBlock.pop();
+        loopUpdateBlock.pop();
         loopAfterBlock.pop();
     }
 
@@ -444,7 +444,7 @@ public class IrBuilder implements IAstVisitor {
 
     @Override
     public void visit(AstUnaryExpression node) {
-        if (node.opt == "!") {
+        if (node.opt.equals("!")) {
             trueBlockMap.put(node.expr, falseBlockMap.get(node));
             falseBlockMap.put(node.expr, trueBlockMap.get(node));
             node.expr.accept(this);
