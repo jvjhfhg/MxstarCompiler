@@ -86,7 +86,7 @@ public class Compiler {
         System.err.println("* Register Allocated...");
 
         StackFrameBuilder stackFrameBuilder = new StackFrameBuilder(irProgram);
-        stackFrameBuilder.build();
+        stackFrameBuilder.process();
 
         System.err.println("* Stack Frame Built...");
 

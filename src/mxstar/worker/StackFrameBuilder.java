@@ -13,8 +13,7 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedList;
 
-import static mxstar.ir.IrRegisterSet.rbp;
-import static mxstar.ir.IrRegisterSet.rsp;
+import static mxstar.ir.IrRegisterSet.*;
 
 public class StackFrameBuilder {
     class Frame {
@@ -36,7 +35,7 @@ public class StackFrameBuilder {
         this.framesMap = new HashMap<>();
     }
 
-    public void build() {
+    public void process() {
         for (IrFunction function : irProgram.functions) {
             processFunction(function);
         }
@@ -86,6 +85,7 @@ public class StackFrameBuilder {
         headInstruction.insertPrev(new IrBinaryInstruction(headInstruction.basicBlock, IrBinaryInstruction.IrBinaryOpt.SUB, rsp,
                 new IrImmidiate(frame.getFrameSize())));
         HashSet<IrPhysicalRegister> needToSave = new HashSet<>(function.usedPhysicalRegisters);
+        needToSave.retainAll(calleeSave);
         headInstruction = headInstruction.prev;
         for (IrPhysicalRegister physicalRegister : needToSave) {
             headInstruction.insertNext(new IrPush(headInstruction.basicBlock, physicalRegister));
