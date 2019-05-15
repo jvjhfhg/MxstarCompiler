@@ -8,8 +8,8 @@ int main() {
     return __init();
 }
 
-typedef (long) int64_t;
-typedef (char *) handle_t;
+typedef long int64_t;
+typedef char * handle_t;
 
 /*
 	builtin_print;

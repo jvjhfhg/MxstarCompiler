@@ -69,6 +69,7 @@ public class StGlobalTable extends StSymbolTable {
     private StFunctionSymbol stringLength() {
         StFunctionSymbol symbol = new StFunctionSymbol();
         symbol.name = "length";
+        symbol.isGlobal = true;
         symbol.position = new TokenPosition(0, 0);
         symbol.parameterTypes.add(stringType());
         symbol.parameterNames.add("this");
@@ -79,6 +80,7 @@ public class StGlobalTable extends StSymbolTable {
     private StFunctionSymbol stringSubstring() {
         StFunctionSymbol symbol = new StFunctionSymbol();
         symbol.name = "substring";
+        symbol.isGlobal = true;
         symbol.position = new TokenPosition(0, 0);
         symbol.parameterTypes.add(stringType());
         symbol.parameterNames.add("this");
@@ -93,6 +95,7 @@ public class StGlobalTable extends StSymbolTable {
     private StFunctionSymbol stringParseInt() {
         StFunctionSymbol symbol = new StFunctionSymbol();
         symbol.name = "parseInt";
+        symbol.isGlobal = true;
         symbol.position = new TokenPosition(0, 0);
         symbol.parameterTypes.add(stringType());
         symbol.parameterNames.add("this");
@@ -103,6 +106,7 @@ public class StGlobalTable extends StSymbolTable {
     private StFunctionSymbol stringOrd() {
         StFunctionSymbol symbol = new StFunctionSymbol();
         symbol.name = "ord";
+        symbol.isGlobal = true;
         symbol.position = new TokenPosition(0, 0);
         symbol.parameterTypes.add(stringType());
         symbol.parameterNames.add("this");
@@ -131,6 +135,7 @@ public class StGlobalTable extends StSymbolTable {
     private StFunctionSymbol globalPrint() {
         StFunctionSymbol symbol = new StFunctionSymbol();
         symbol.name = "print";
+        symbol.isGlobal = true;
         symbol.position = new TokenPosition(0, 0);
         symbol.parameterTypes.add(stringType());
         symbol.parameterNames.add("str");
@@ -141,6 +146,7 @@ public class StGlobalTable extends StSymbolTable {
     private StFunctionSymbol globalPrintln() {
         StFunctionSymbol symbol = new StFunctionSymbol();
         symbol.name = "println";
+        symbol.isGlobal = true;
         symbol.position = new TokenPosition(0, 0);
         symbol.parameterTypes.add(stringType());
         symbol.parameterNames.add("str");
@@ -151,6 +157,7 @@ public class StGlobalTable extends StSymbolTable {
     private StFunctionSymbol globalGetString() {
         StFunctionSymbol symbol = new StFunctionSymbol();
         symbol.name = "getString";
+        symbol.isGlobal = true;
         symbol.position = new TokenPosition(0, 0);
         symbol.returnType = stringType();
         return symbol;
@@ -159,6 +166,7 @@ public class StGlobalTable extends StSymbolTable {
     private StFunctionSymbol globalGetInt() {
         StFunctionSymbol symbol = new StFunctionSymbol();
         symbol.name = "getInt";
+        symbol.isGlobal = true;
         symbol.position = new TokenPosition(0, 0);
         symbol.returnType = intType();
         return symbol;
@@ -167,6 +175,7 @@ public class StGlobalTable extends StSymbolTable {
     private StFunctionSymbol globalToString() {
         StFunctionSymbol symbol = new StFunctionSymbol();
         symbol.name = "toString";
+        symbol.isGlobal = true;
         symbol.position = new TokenPosition(0, 0);
         symbol.returnType = stringType();
         symbol.parameterTypes.add(intType());

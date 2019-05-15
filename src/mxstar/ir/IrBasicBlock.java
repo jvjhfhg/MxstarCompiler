@@ -5,18 +5,23 @@ import mxstar.ir.instruction.*;
 import java.util.LinkedList;
 
 public class IrBasicBlock {
-    public String label;
+    public String hint;
     public IrFunction function;
     public IrInstruction head;
     public IrInstruction tail;
     public LinkedList<IrBasicBlock> predecessors;
     public LinkedList<IrBasicBlock> successors;
 
-    public IrBasicBlock(IrFunction function, String label) {
+    private static int globalBlockCnt = 0;
+    public int blockId;
+
+    public IrBasicBlock(IrFunction function, String hint) {
         this.function = function;
-        this.label = label;
+        this.hint = hint;
         this.predecessors = new LinkedList<>();
         this.successors = new LinkedList<>();
+        function.basicBlocks.add(this);
+        blockId = globalBlockCnt++;
     }
 
     public boolean isEnd() {

@@ -25,6 +25,8 @@ public abstract class IrInstruction {
     public void insertPrev(IrInstruction instruction) {
         if (prev != null) {
             prev.next = instruction;
+        } else {
+            basicBlock.head = instruction;
         }
         instruction.prev = prev;
         instruction.next = this;
@@ -34,6 +36,8 @@ public abstract class IrInstruction {
     public void insertNext(IrInstruction instruction) {
         if (next != null) {
             next.prev = instruction;
+        } else {
+            basicBlock.tail = instruction;
         }
         instruction.prev = this;
         instruction.next = next;

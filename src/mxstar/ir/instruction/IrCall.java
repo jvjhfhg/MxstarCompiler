@@ -3,10 +3,7 @@ package mxstar.ir.instruction;
 import mxstar.ir.IIrVisitor;
 import mxstar.ir.IrBasicBlock;
 import mxstar.ir.IrFunction;
-import mxstar.ir.operand.IrAddress;
-import mxstar.ir.operand.IrOperand;
-import mxstar.ir.operand.IrRegister;
-import mxstar.ir.operand.IrStackSlot;
+import mxstar.ir.operand.*;
 
 import java.util.Arrays;
 import java.util.HashMap;
@@ -16,16 +13,16 @@ import static mxstar.ir.IrRegisterSet.vArgs;
 import static mxstar.ir.IrRegisterSet.vCallerSave;
 
 public class IrCall extends IrInstruction {
-        public IrAddress dest;
-        public IrFunction function;
-        public LinkedList<IrOperand> arguments;
+    public IrAddress dest;
+    public IrFunction function;
+    public LinkedList<IrOperand> arguments;
 
     public IrCall(IrBasicBlock basicBlock, IrAddress dest, IrFunction function, LinkedList<IrOperand> arguments) {
         super(basicBlock);
         this.dest = dest;
         this.function = function;
         this.arguments = new LinkedList<>(arguments);
-        this.basicBlock.function.callees.add(function);
+        super.basicBlock.function.callees.add(function);
     }
 
     public IrCall(IrBasicBlock basicBlock, IrAddress dest, IrFunction function, IrOperand... arguments) {
@@ -33,7 +30,19 @@ public class IrCall extends IrInstruction {
         this.dest = dest;
         this.function = function;
         this.arguments = new LinkedList<>(Arrays.asList(arguments));
-        this.basicBlock.function.callees.add(function);
+        super.basicBlock.function.callees.add(function);
+    }
+
+    public LinkedList<IrRegister> getCallUsed() {
+        LinkedList<IrRegister> regs = new LinkedList<>();
+        for (IrOperand operand : arguments) {
+            if (operand instanceof IrMemory) {
+                regs.addAll(((IrMemory) operand).getUsedRegs());
+            } else if (operand instanceof IrVirtualRegister) {
+                regs.add((IrRegister) operand);
+            }
+        }
+        return regs;
     }
 
     @Override

@@ -11,10 +11,8 @@ import mxstar.symbol.StVariableSymbol;
 import java.util.HashSet;
 
 import static mxstar.ir.IrRegisterSet.vArgs;
-import static mxstar.ir.IrRegisterSet.vr8;
 
 public class IrCorrector implements IIrVisitor {
-    private IrProgram program;
     private boolean isBasicAllocator;
 
     public IrCorrector(boolean isBasicAllocator) {
@@ -23,7 +21,6 @@ public class IrCorrector implements IIrVisitor {
 
     @Override
     public void visit(IrProgram program) {
-        this.program = program;
         for (IrFunction function : program.functions) {
             function.accept(this);
         }
@@ -131,12 +128,12 @@ public class IrCorrector implements IIrVisitor {
         IrFunction caller = instruction.basicBlock.function;
         IrFunction callee = instruction.function;
         HashSet<StVariableSymbol> callerUsed = caller.usedGlobalVariables;
-//        HashSet<StVariableSymbol> calleeUsed = callee.recursiveUsedGlobalVariables;
+        HashSet<StVariableSymbol> calleeUsed = callee.recursiveUsedGlobalVariables;
         for (StVariableSymbol variableSymbol : callerUsed) {
-//            if (calleeUsed.contains(variableSymbol)) {
+            if (calleeUsed.contains(variableSymbol)) {
                 instruction.insertPrev(new IrMove(instruction.basicBlock, variableSymbol.virtualRegister.spillPlace, variableSymbol.virtualRegister));
                 instruction.prev.accept(this);
-//            }
+            }
         }
         while (instruction.arguments.size() > 6) {
             instruction.insertPrev(new IrPush(instruction.basicBlock, instruction.arguments.removeLast()));
@@ -146,9 +143,9 @@ public class IrCorrector implements IIrVisitor {
             instruction.prev.accept(this);
         }
         for (StVariableSymbol variableSymbol : callerUsed) {
-//            if (calleeUsed.contains(variableSymbol)) {
+            if (calleeUsed.contains(variableSymbol)) {
                 instruction.insertNext(new IrMove(instruction.basicBlock, variableSymbol.virtualRegister, variableSymbol.virtualRegister.spillPlace));
-//            }
+            }
         }
     }
 

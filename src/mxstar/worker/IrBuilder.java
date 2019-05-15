@@ -70,8 +70,8 @@ public class IrBuilder implements IAstVisitor {
         functionMap.put("string.parseInt", new IrFunction(IrFunction.IrFuncType.BUILTIN, "string_parseInt", true));
         functionMap.put("string.ord", new IrFunction(IrFunction.IrFuncType.BUILTIN, "string_ord", true));
 
-        builtinStringConcat = new IrFunction(IrFunction.IrFuncType.BUILTIN, "string_concat", true);
-        builtinStringCompare = new IrFunction(IrFunction.IrFuncType.BUILTIN, "string_compare", true);
+        builtinStringConcat = new IrFunction(IrFunction.IrFuncType.BUILTIN, "stringConcat", true);
+        builtinStringCompare = new IrFunction(IrFunction.IrFuncType.BUILTIN, "stringCompare", true);
         externalMalloc = new IrFunction(IrFunction.IrFuncType.EXTERNAL, "malloc", true);
         builtinInit = new IrFunction(IrFunction.IrFuncType.BUILTIN, "init", true);
     }
@@ -141,7 +141,7 @@ public class IrBuilder implements IAstVisitor {
         functionDeclarations.addAll(node.functions);
         for (AstClassDeclaration classDeclaration : node.classes) {
             if (classDeclaration.constructor != null) {
-                classDeclaration.constructor.accept(this);
+                functionDeclarations.add(classDeclaration.constructor);
             }
             functionDeclarations.addAll(classDeclaration.methods);
         }
@@ -155,8 +155,9 @@ public class IrBuilder implements IAstVisitor {
             functionMap.put(functionDeclaration.symbol.name, new IrFunction(IrFunction.IrFuncType.USERDEFINED,
                     functionDeclaration.symbol.name, !isVoidType(functionDeclaration.symbol.returnType)));
         }
-        for (AstFunctionDeclaration functionDeclaration : node.functions)
+        for (AstFunctionDeclaration functionDeclaration : node.functions) {
             functionDeclaration.accept(this);
+        }
         for (AstClassDeclaration classDeclaration : node.classes) {
             classDeclaration.accept(this);
         }
@@ -168,6 +169,72 @@ public class IrBuilder implements IAstVisitor {
         }
 
         buildInitFunction(node);
+    }
+
+    @Override
+    public void visit(AstFunctionDeclaration node) {
+        currentFunction = functionMap.get(node.symbol.name);
+        currentBasicBlock = currentFunction.frontBasicBlock = new IrBasicBlock(currentFunction, "frontBlock");
+
+        if (isInClassDeclaration) {
+            IrVirtualRegister thisHandle = new IrVirtualRegister("");
+            currentFunction.parameters.add(thisHandle);
+            currentThisHandle = thisHandle;
+        }
+        isParameter = true;
+        for (AstVariableDeclaration variableDeclaration : node.parameters) {
+            variableDeclaration.accept(this);
+        }
+        isParameter = false;
+
+        for (int i = 0; i < currentFunction.parameters.size(); ++i) {
+            if (i < 6) {
+                currentBasicBlock.append(new IrMove(currentBasicBlock, currentFunction.parameters.get(i), vArgs.get(i)));
+            } else {
+                currentBasicBlock.append(new IrMove(currentBasicBlock, currentFunction.parameters.get(i), currentFunction.parameters.get(i).spillPlace));
+            }
+        }
+
+        for (StVariableSymbol variableSymbol : node.symbol.usedGlobalVariables) {
+            currentBasicBlock.append(new IrMove(currentBasicBlock, variableSymbol.virtualRegister, variableSymbol.virtualRegister.spillPlace));
+        }
+
+        for (AstStatement statement : node.body) {
+            statement.accept(this);
+        }
+        if (!(currentBasicBlock.tail instanceof IrReturn)) {
+            if (isVoidType(node.symbol.returnType)) {
+                currentBasicBlock.append(new IrReturn(currentBasicBlock));
+            } else {
+                currentBasicBlock.append(new IrMove(currentBasicBlock, vrax, new IrImmidiate(0)));
+                currentBasicBlock.append(new IrReturn(currentBasicBlock));
+            }
+        }
+
+        LinkedList<IrReturn> returnInstructions = new LinkedList<>();
+        for (IrBasicBlock basicBlock : currentFunction.basicBlocks) {
+            for (IrInstruction instruction = basicBlock.head; instruction != null; instruction = instruction.next) {
+                if (instruction instanceof IrReturn) {
+                    returnInstructions.add((IrReturn) instruction);
+                }
+            }
+        }
+
+        IrBasicBlock backBlock = new IrBasicBlock(currentFunction, "backBlock");
+        for (IrReturn returnInstruction : returnInstructions) {
+            returnInstruction.insertPrev(new IrJump(returnInstruction.basicBlock, backBlock));
+            returnInstruction.delete();
+        }
+        backBlock.append(new IrReturn(backBlock));
+        currentFunction.backBasicBlock = backBlock;
+
+        IrInstruction returnInstruction = currentFunction.backBasicBlock.tail;
+        for (StVariableSymbol variableSymbol : node.symbol.usedGlobalVariables) {
+            returnInstruction.insertPrev(new IrMove(returnInstruction.basicBlock, variableSymbol.virtualRegister.spillPlace, variableSymbol.virtualRegister));
+        }
+
+        functionMap.put(node.symbol.name, currentFunction);
+        program.functions.add(currentFunction);
     }
 
     @Override
@@ -223,8 +290,8 @@ public class IrBuilder implements IAstVisitor {
 
         IrBasicBlock bodyBlock = new IrBasicBlock(currentFunction, "forBodyBlock");
         IrBasicBlock afterBlock = new IrBasicBlock(currentFunction, "forAfterBlock");
-        IrBasicBlock conditionBlock = (node.expr2 != null ? new IrBasicBlock(currentFunction, "forConditionBlock") : null);
-        IrBasicBlock updateBlock = (node.expr3 != null ? new IrBasicBlock(currentFunction, "forUpdateBlock") : null);
+        IrBasicBlock conditionBlock = (node.expr2 != null ? new IrBasicBlock(currentFunction, "forConditionBlock") : bodyBlock);
+        IrBasicBlock updateBlock = (node.expr3 != null ? new IrBasicBlock(currentFunction, "forUpdateBlock") : conditionBlock);
 
         currentBasicBlock.append(new IrJump(currentBasicBlock, conditionBlock));
         loopConditionBlock.push(conditionBlock);
@@ -237,17 +304,17 @@ public class IrBuilder implements IAstVisitor {
             node.expr2.accept(this);
         }
 
-        conditionBlock = bodyBlock;
+        currentBasicBlock = bodyBlock;
         node.expr2.accept(this);
-        conditionBlock.append(new IrJump(currentBasicBlock, updateBlock));
+        currentBasicBlock.append(new IrJump(currentBasicBlock, updateBlock));
 
         if (node.expr3 != null) {
             currentBasicBlock = updateBlock;
             node.expr3.accept(this);
-            conditionBlock.append(new IrJump(currentBasicBlock, conditionBlock));
+            currentBasicBlock.append(new IrJump(currentBasicBlock, conditionBlock));
         }
 
-        conditionBlock = afterBlock;
+        currentBasicBlock = afterBlock;
         loopAfterBlock.pop();
         loopConditionBlock.pop();
     }
@@ -714,72 +781,6 @@ public class IrBuilder implements IAstVisitor {
     }
 
     @Override
-    public void visit(AstFunctionDeclaration node) {
-        currentFunction = functionMap.get(node.symbol.name);
-        currentBasicBlock = currentFunction.frontBasicBlock = new IrBasicBlock(currentFunction, "frontBlock");
-
-        if (isInClassDeclaration) {
-            IrVirtualRegister thisHandle = new IrVirtualRegister("");
-            currentFunction.parameters.add(thisHandle);
-            currentThisHandle = thisHandle;
-        }
-        isParameter = true;
-        for (AstVariableDeclaration variableDeclaration : node.parameters) {
-            variableDeclaration.accept(this);
-        }
-        isParameter = false;
-
-        for (int i = 0; i < currentFunction.parameters.size(); ++i) {
-            if (i < 6) {
-                currentBasicBlock.append(new IrMove(currentBasicBlock, currentFunction.parameters.get(i), vArgs.get(i)));
-            } else {
-                currentBasicBlock.append(new IrMove(currentBasicBlock, currentFunction.parameters.get(i), currentFunction.parameters.get(i).spillPlace));
-            }
-        }
-
-        for (StVariableSymbol variableSymbol : node.symbol.usedGlobalVariables) {
-            currentBasicBlock.append(new IrMove(currentBasicBlock, variableSymbol.virtualRegister, variableSymbol.virtualRegister.spillPlace));
-        }
-
-        for (AstStatement statement : node.body) {
-            statement.accept(this);
-        }
-        if (!(currentBasicBlock.tail instanceof IrReturn)) {
-            if (isVoidType(node.symbol.returnType)) {
-                currentBasicBlock.append(new IrReturn(currentBasicBlock));
-            } else {
-                currentBasicBlock.append(new IrMove(currentBasicBlock, vrax, new IrImmidiate(0)));
-                currentBasicBlock.append(new IrReturn(currentBasicBlock));
-            }
-        }
-
-        LinkedList<IrReturn> returnInstructions = new LinkedList<>();
-        for (IrBasicBlock basicBlock : currentFunction.basicBlocks) {
-            for (IrInstruction instruction = basicBlock.head; instruction != null; instruction = instruction.next) {
-                if (instruction instanceof IrReturn) {
-                    returnInstructions.add((IrReturn) instruction);
-                }
-            }
-        }
-
-        IrBasicBlock backBlock = new IrBasicBlock(currentFunction, "backBlock");
-        for (IrReturn returnInstruction : returnInstructions) {
-            returnInstruction.insertPrev(new IrJump(returnInstruction.basicBlock, backBlock));
-            returnInstruction.delete();
-        }
-        backBlock.append(new IrReturn(backBlock));
-        currentFunction.backBasicBlock = backBlock;
-
-        IrInstruction returnInstruction = currentFunction.backBasicBlock.tail;
-        for (StVariableSymbol variableSymbol : node.symbol.usedGlobalVariables) {
-            returnInstruction.insertPrev(new IrMove(returnInstruction.basicBlock, variableSymbol.virtualRegister.spillPlace, variableSymbol.virtualRegister));
-        }
-
-        functionMap.put(node.symbol.name, currentFunction);
-        program.functions.add(currentFunction);
-    }
-
-    @Override
     public void visit(AstVariableDeclaration node) {
         assert currentFunction != null;
         IrVirtualRegister virtualRegister = new IrVirtualRegister(node.name);
@@ -787,6 +788,7 @@ public class IrBuilder implements IAstVisitor {
             if (currentFunction.parameters.size() >= 6) {
                 virtualRegister.spillPlace = new IrStackSlot(virtualRegister.hint);
             }
+            currentFunction.parameters.add(virtualRegister);
         }
         node.symbol.virtualRegister = virtualRegister;
         if (node.initValue != null) {

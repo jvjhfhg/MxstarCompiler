@@ -3,6 +3,7 @@ package mxstar.ir;
 import mxstar.ir.instruction.IrCjump;
 import mxstar.ir.instruction.IrJump;
 import mxstar.ir.operand.IrPhysicalRegister;
+import mxstar.ir.operand.IrRegister;
 import mxstar.ir.operand.IrVirtualRegister;
 import mxstar.symbol.StVariableSymbol;
 
@@ -21,7 +22,7 @@ public class IrFunction {
     public IrBasicBlock frontBasicBlock;
     public IrBasicBlock backBasicBlock;
     public LinkedList<IrBasicBlock> basicBlocks;
-    public LinkedList<IrFunction> callees;
+    public HashSet<IrFunction> callees;
     public LinkedList<IrVirtualRegister> parameters;
     public boolean hasReturnValue;
 
@@ -30,12 +31,14 @@ public class IrFunction {
     public HashSet<IrPhysicalRegister> usedPhysicalRegisters;
     public HashSet<IrPhysicalRegister> recursiveUsedPhysicalRegisters;
 
+    private HashSet<IrFunction> visitedFunctions;
+
     public IrFunction(IrFuncType type, String name, boolean hasReturnValue) {
         this.type = type;
         this.name = name;
         this.hasReturnValue = hasReturnValue;
 
-        this.callees = new LinkedList<>();
+        this.callees = new HashSet<>();
         this.basicBlocks = new LinkedList<>();
         this.parameters = new LinkedList<>();
 
@@ -43,6 +46,8 @@ public class IrFunction {
         this.recursiveUsedGlobalVariables = new HashSet<>();
         this.usedPhysicalRegisters = new HashSet<>();
         this.recursiveUsedPhysicalRegisters = new HashSet<>();
+
+        this.visitedFunctions = new HashSet<>();
 
         if (type != IrFuncType.USERDEFINED && !name.equals("init")) {
             for (IrPhysicalRegister physicalRegister : allRegs) {
@@ -52,6 +57,17 @@ public class IrFunction {
                 }
             }
         }
+    }
+
+    private void dfsRecursiveUsedGlobalVariables(IrFunction function) {
+        if (visitedFunctions.contains(function)) {
+            return;
+        }
+        visitedFunctions.add(function);
+        for (IrFunction func : function.callees) {
+            dfsRecursiveUsedGlobalVariables(func);
+        }
+        recursiveUsedGlobalVariables.addAll(function.usedGlobalVariables);
     }
 
     public void finalProcess() {
@@ -79,6 +95,18 @@ public class IrFunction {
                 }
             }
         }
+
+        visitedFunctions.clear();
+        recursiveUsedGlobalVariables.clear();
+        dfsRecursiveUsedGlobalVariables(this);
+    }
+
+    private LinkedList<IrPhysicalRegister> trans(LinkedList<IrRegister> regs) {
+        LinkedList<IrPhysicalRegister> ret = new LinkedList<>();
+        for (IrRegister reg : regs) {
+            ret.add((IrPhysicalRegister) reg);
+        }
+        return ret;
     }
 
     public void accept(IIrVisitor visitor) {

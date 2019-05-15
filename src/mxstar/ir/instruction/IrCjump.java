@@ -64,7 +64,7 @@ public class IrCjump extends IrInstruction {
         }
         IrOperand tmp = lhs;
         lhs = rhs;
-        rhs = lhs;
+        rhs = tmp;
     }
 
     public IrBasicBlock doCompare() {

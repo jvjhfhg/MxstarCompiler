@@ -61,6 +61,9 @@ public class Compiler {
         RegisterAllocator allocator = new RegisterAllocator(irProgram);
         allocator.allocate();
 
+        StackFrameBuilder stackFrameBuilder = new StackFrameBuilder(irProgram);
+        stackFrameBuilder.build();
+
         IrPrinter irPrinter = new IrPrinter();
         irProgram.accept(irPrinter);
         irPrinter.printTo(new PrintStream("program.asm"));
