@@ -34,6 +34,25 @@ public class AstLiteralExpression extends AstExpression {
         }
     }
 
+    public AstLiteralExpression(String type, String value) {
+        position = null;
+        switch (type) {
+            case "int":
+                this.type = new AstPrimitiveType("int");
+                break;
+            case "bool":
+                this.type = new AstPrimitiveType("bool");
+                break;
+            case "null":
+                this.type = new AstClassType("null");
+                break;
+            default: // StringLiteral
+                this.type = new AstClassType("string");
+        }
+        this.typeName = type;
+        this.value = value;
+    }
+
     private String escape(String string) {
         StringBuilder stringBuilder = new StringBuilder();
         for (int i = 0; i < string.length(); ++i) {

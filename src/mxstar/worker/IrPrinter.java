@@ -303,7 +303,7 @@ public class IrPrinter implements IIrVisitor {
         appendln(indentedInst(opt, true) + getBasicBlockName(instruction.thenBlock));
 
         if (instruction.elseBlock != nextBasicBlock) {
-            appendln(indentedInst(opt, true) + getBasicBlockName(instruction.elseBlock));
+            appendln(indentedInst("jmp", true) + getBasicBlockName(instruction.elseBlock));
         }
     }
 

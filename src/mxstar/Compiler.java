@@ -33,13 +33,19 @@ public class Compiler {
 
         ParseTree parseTree = parser.compilationUnit();
 
+        System.err.println("* Parsed...");
+
         AstBuilder astBuilder = new AstBuilder(errorRecorder);
         astBuilder.visit(parseTree);
 
         AstProgram astProgram = astBuilder.getAstProgram();
 
+        System.err.println("* AST Built...");
+
         StBuilder stBuilder = new StBuilder(errorRecorder);
         astProgram.accept(stBuilder);
+
+        System.err.println("* ST Built...");
 
         StGlobalTable globalTable = stBuilder.globalTable;
         SemanticChecker semanticChecker = new SemanticChecker(errorRecorder, globalTable);
@@ -50,25 +56,45 @@ public class Compiler {
             System.exit(1);
         }
 
+        System.err.println("* Semantic Check Passed...");
+
+        ConstantFolder constantFolder = new ConstantFolder();
+        astProgram.accept(constantFolder);
+
+        System.err.println("* Constant Folded...");
+
         IrRegisterSet.init();
         IrBuilder irBuilder = new IrBuilder(globalTable);
         astProgram.accept(irBuilder);
         IrProgram irProgram = irBuilder.getIrProgram();
 
-        IrCorrector irCorrector = new IrCorrector(true);
+        System.err.println("* IR Built...");
+
+        InstructionSimplifier instructionSimplifier = new InstructionSimplifier(irProgram);
+        instructionSimplifier.process();
+
+        System.err.println("* Useless Instruction Eliminated...");
+
+        IrCorrector irCorrector = new IrCorrector(false);
         irProgram.accept(irCorrector);
 
+        System.err.println("* IR Corrected...");
+
         RegisterAllocator allocator = new RegisterAllocator(irProgram);
-        allocator.allocate();
+        allocator.process();
+
+        System.err.println("* Register Allocated...");
 
         StackFrameBuilder stackFrameBuilder = new StackFrameBuilder(irProgram);
         stackFrameBuilder.build();
+
+        System.err.println("* Stack Frame Built...");
 
         IrPrinter irPrinter = new IrPrinter();
         irProgram.accept(irPrinter);
         irPrinter.printTo(new PrintStream("program.asm"));
 
-        System.err.println("Compilation completed. ");
+        System.err.println("* Compilation Completed.");
         System.exit(0);
     }
 }

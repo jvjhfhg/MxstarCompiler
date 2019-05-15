@@ -94,13 +94,13 @@ public class IrCjump extends IrInstruction {
         if (lhs instanceof IrMemory) {
             lhs = ((IrMemory) lhs).copy();
             ((IrMemory) lhs).renameUsedReg(renameMap);
-        } else {
+        } else if (lhs instanceof IrRegister && renameMap.containsKey(lhs)) {
             lhs = renameMap.get(lhs);
         }
         if (rhs instanceof IrMemory) {
             rhs = ((IrMemory) rhs).copy();
             ((IrMemory) rhs).renameUsedReg(renameMap);
-        } else {
+        } else if (rhs instanceof IrRegister && renameMap.containsKey(rhs)) {
             rhs = renameMap.get(rhs);
         }
     }
