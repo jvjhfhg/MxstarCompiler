@@ -141,7 +141,7 @@ public class StBuilder implements IAstVisitor {
             return;
         }
         StFunctionSymbol symbol = new StFunctionSymbol();
-        symbol.name = functionDeclaration.name;
+        symbol.name = (classSymbol != null ? classSymbol.name + "." : "") + functionDeclaration.name;
         symbol.isGlobal = (classSymbol == null);
         symbol.position = functionDeclaration.position;
         symbol.returnType = getStType(functionDeclaration.returnType);

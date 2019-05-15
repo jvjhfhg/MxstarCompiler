@@ -68,7 +68,7 @@ public class StGlobalTable extends StSymbolTable {
 
     private StFunctionSymbol stringLength() {
         StFunctionSymbol symbol = new StFunctionSymbol();
-        symbol.name = "length";
+        symbol.name = "string.length";
         symbol.isGlobal = true;
         symbol.position = new TokenPosition(0, 0);
         symbol.parameterTypes.add(stringType());
@@ -79,7 +79,7 @@ public class StGlobalTable extends StSymbolTable {
 
     private StFunctionSymbol stringSubstring() {
         StFunctionSymbol symbol = new StFunctionSymbol();
-        symbol.name = "substring";
+        symbol.name = "string.substring";
         symbol.isGlobal = true;
         symbol.position = new TokenPosition(0, 0);
         symbol.parameterTypes.add(stringType());
@@ -94,7 +94,7 @@ public class StGlobalTable extends StSymbolTable {
 
     private StFunctionSymbol stringParseInt() {
         StFunctionSymbol symbol = new StFunctionSymbol();
-        symbol.name = "parseInt";
+        symbol.name = "string.parseInt";
         symbol.isGlobal = true;
         symbol.position = new TokenPosition(0, 0);
         symbol.parameterTypes.add(stringType());
@@ -105,7 +105,7 @@ public class StGlobalTable extends StSymbolTable {
 
     private StFunctionSymbol stringOrd() {
         StFunctionSymbol symbol = new StFunctionSymbol();
-        symbol.name = "ord";
+        symbol.name = "string.ord";
         symbol.isGlobal = true;
         symbol.position = new TokenPosition(0, 0);
         symbol.parameterTypes.add(stringType());

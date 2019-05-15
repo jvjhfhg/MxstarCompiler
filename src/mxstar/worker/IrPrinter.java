@@ -191,7 +191,7 @@ public class IrPrinter implements IIrVisitor {
             appendln();
             return;
         }
-        if (instruction.opt == IrBinaryInstruction.IrBinaryOpt.DIV) {
+        if (instruction.opt == IrBinaryInstruction.IrBinaryOpt.DIV || instruction.opt == IrBinaryInstruction.IrBinaryOpt.MOD) {
             append(indentedInst("div", true));
             instruction.src.accept(this);
             appendln();
@@ -318,6 +318,7 @@ public class IrPrinter implements IIrVisitor {
 
     @Override
     public void visit(IrLea instruction) {
+        inLeaInst = true;
         append(indentedInst("lea", true));
         instruction.dest.accept(this);
         append(", ");

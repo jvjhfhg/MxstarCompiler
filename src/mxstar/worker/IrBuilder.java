@@ -305,7 +305,7 @@ public class IrBuilder implements IAstVisitor {
         }
 
         currentBasicBlock = bodyBlock;
-        node.expr2.accept(this);
+        node.body.accept(this);
         currentBasicBlock.append(new IrJump(currentBasicBlock, updateBlock));
 
         if (node.expr3 != null) {
@@ -718,7 +718,7 @@ public class IrBuilder implements IAstVisitor {
             IrBasicBlock afterBlock = new IrBasicBlock(currentFunction, "allocateAfterBlock");
             currentBasicBlock.append(new IrJump(currentBasicBlock, conditionBlock));
             conditionBlock.append(new IrCjump(conditionBlock, size, IrCjump.IrCompareOpt.G, new IrImmidiate(0), bodyBlock, afterBlock));
-            currentBasicBlock = conditionBlock;
+            currentBasicBlock = bodyBlock;
             if (dims.size() == 1) {
                 IrOperand handle = allocateArray(new LinkedList<>(), baseBytes, constructor);
                 currentBasicBlock.append(new IrMove(currentBasicBlock, new IrMemory(address, size, 8), handle));
