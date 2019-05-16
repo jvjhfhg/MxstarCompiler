@@ -647,19 +647,24 @@ public class IrBuilder implements IAstVisitor {
             case "<=":
             case ">=":
             case "!=":
-                IrVirtualRegister res = new IrVirtualRegister("");
-                IrBasicBlock trueBlock = new IrBasicBlock(currentFunction, "trueBlock");
-                IrBasicBlock falseBlock = new IrBasicBlock(currentFunction, "falseBlock");
-                IrBasicBlock afterBlock = new IrBasicBlock(currentFunction, "afterBlock");
-                trueBlockMap.put(node, trueBlock);
-                falseBlockMap.put(node, falseBlock);
-                doRelationalBinary(node.opt, node.expr1, node.expr2, trueBlockMap.get(node), falseBlockMap.get(node));
-                trueBlock.append(new IrMove(trueBlock, res, new IrImmidiate(1)));
-                trueBlock.append(new IrJump(trueBlock, afterBlock));
-                falseBlock.append(new IrMove(falseBlock, res, new IrImmidiate(0)));
-                falseBlock.append(new IrJump(falseBlock, afterBlock));
-                currentBasicBlock = afterBlock;
-                expressionResultMap.put(node, res);
+                boolean isParameter = !trueBlockMap.containsKey(node);
+                if (isParameter) {
+                    IrVirtualRegister res = new IrVirtualRegister("");
+                    IrBasicBlock trueBlock = new IrBasicBlock(currentFunction, "trueBlock");
+                    IrBasicBlock falseBlock = new IrBasicBlock(currentFunction, "falseBlock");
+                    IrBasicBlock afterBlock = new IrBasicBlock(currentFunction, "afterBlock");
+                    trueBlockMap.put(node, trueBlock);
+                    falseBlockMap.put(node, falseBlock);
+                    doRelationalBinary(node.opt, node.expr1, node.expr2, trueBlockMap.get(node), falseBlockMap.get(node));
+                    trueBlock.append(new IrMove(trueBlock, res, new IrImmidiate(1)));
+                    trueBlock.append(new IrJump(trueBlock, afterBlock));
+                    falseBlock.append(new IrMove(falseBlock, res, new IrImmidiate(0)));
+                    falseBlock.append(new IrJump(falseBlock, afterBlock));
+                    currentBasicBlock = afterBlock;
+                    expressionResultMap.put(node, res);
+                } else {
+                    doRelationalBinary(node.opt, node.expr1, node.expr2, trueBlockMap.get(node), falseBlockMap.get(node));
+                }
                 break;
             case "&&":
             case "||":
@@ -684,19 +689,24 @@ public class IrBuilder implements IAstVisitor {
                 operand = new IrImmidiate(0);
                 break;
             case "bool":
-                IrVirtualRegister res = new IrVirtualRegister("");
-                IrBasicBlock trueBlock = new IrBasicBlock(currentFunction, "trueBlock");
-                IrBasicBlock falseBlock = new IrBasicBlock(currentFunction, "falseBlock");
-                IrBasicBlock afterBlock = new IrBasicBlock(currentFunction, "afterBlock");
-                trueBlockMap.put(node, trueBlock);
-                falseBlockMap.put(node, falseBlock);
-                currentBasicBlock.append(new IrJump(currentBasicBlock, node.value.equals("true") ? trueBlockMap.get(node) : falseBlockMap.get(node)));
-                trueBlock.append(new IrMove(trueBlock, res, new IrImmidiate(1)));
-                trueBlock.append(new IrJump(trueBlock, afterBlock));
-                falseBlock.append(new IrMove(falseBlock, res, new IrImmidiate(0)));
-                falseBlock.append(new IrJump(falseBlock, afterBlock));
-                currentBasicBlock = afterBlock;
-                operand = res;
+                boolean isParameter = !trueBlockMap.containsKey(node);
+                if (isParameter) {
+                    IrVirtualRegister res = new IrVirtualRegister("");
+                    IrBasicBlock trueBlock = new IrBasicBlock(currentFunction, "trueBlock");
+                    IrBasicBlock falseBlock = new IrBasicBlock(currentFunction, "falseBlock");
+                    IrBasicBlock afterBlock = new IrBasicBlock(currentFunction, "afterBlock");
+                    trueBlockMap.put(node, trueBlock);
+                    falseBlockMap.put(node, falseBlock);
+                    currentBasicBlock.append(new IrJump(currentBasicBlock, node.value.equals("true") ? trueBlockMap.get(node) : falseBlockMap.get(node)));
+                    trueBlock.append(new IrMove(trueBlock, res, new IrImmidiate(1)));
+                    trueBlock.append(new IrJump(trueBlock, afterBlock));
+                    falseBlock.append(new IrMove(falseBlock, res, new IrImmidiate(0)));
+                    falseBlock.append(new IrJump(falseBlock, afterBlock));
+                    currentBasicBlock = afterBlock;
+                    expressionResultMap.put(node, res);
+                } else {
+                    currentBasicBlock.append(new IrJump(currentBasicBlock, node.value.equals("true") ? trueBlockMap.get(node) : falseBlockMap.get(node)));
+                }
                 break;
             case "string":
                 IrStaticData staticData = new IrStaticData("static_string", node.value.substring(1, node.value.length() - 1));
