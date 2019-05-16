@@ -75,7 +75,7 @@ public class Compiler {
 
         System.err.println("* Useless Instruction Eliminated...");
 
-        boolean isBasicAllocator = true;
+        boolean isBasicAllocator = false;
 
         IrCorrector irCorrector = new IrCorrector(isBasicAllocator);
         irProgram.accept(irCorrector);

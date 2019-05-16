@@ -49,14 +49,14 @@ public class LivenessAnalyzer {
         }
 
         void removeEdge(IrVirtualRegister u, IrVirtualRegister v) {
-            if (G.get(u).contains(v) && G.get(v).contains(u)) {
+            if (G.containsKey(u) && G.get(u).contains(v)) {
                 G.get(u).remove(v);
                 G.get(v).remove(u);
             }
         }
 
         void removeRegister(IrVirtualRegister u) {
-            for (IrVirtualRegister v : G.get(u)) {
+            for (IrVirtualRegister v : getAdjacents(u)) {
                 G.get(v).remove(u);
             }
             G.remove(u);
@@ -67,7 +67,7 @@ public class LivenessAnalyzer {
         }
 
         boolean isLinked(IrVirtualRegister u, IrVirtualRegister v) {
-            return G.get(u).contains(v) && G.get(v).contains(u);
+            return G.containsKey(u) && G.get(u).contains(v);
         }
 
         void clear() {
@@ -129,6 +129,7 @@ public class LivenessAnalyzer {
                     blockUsedRegisters.add(register);
                 }
             }
+            blockDefRegisters.addAll(trans(instruction.getDefRegs()));
         }
         usedRegisters.put(basicBlock, blockUsedRegisters);
         defRegisters.put(basicBlock, blockDefRegisters);
