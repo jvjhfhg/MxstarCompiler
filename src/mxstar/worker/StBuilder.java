@@ -164,7 +164,7 @@ public class StBuilder implements IAstVisitor {
             symbol.parameterNames.add(d.name);
         }
         functionDeclaration.symbol = symbol;
-        currentSymbolTable.putFunctionSymbol(symbol.name, symbol);
+        currentSymbolTable.putFunctionSymbol(functionDeclaration.name, symbol);
     }
 
     private void defineClassFields(AstClassDeclaration classDeclaration) {
