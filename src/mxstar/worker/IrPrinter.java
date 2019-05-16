@@ -72,7 +72,7 @@ public class IrPrinter implements IIrVisitor {
         return indent + (trailingSpaces ? String.format("%-10s", cmd) : cmd);
     }
 
-    private String getFunctionName(IrFunction function) {
+    public String getFunctionName(IrFunction function) {
         switch (function.type) {
             case BUILTIN:
                 return "__" + function.name;
@@ -85,28 +85,28 @@ public class IrPrinter implements IIrVisitor {
         }
     }
 
-    private String getBasicBlockName(IrBasicBlock basicBlock) {
+    public String getBasicBlockName(IrBasicBlock basicBlock) {
         if (!basicBlockNames.containsKey(basicBlock)) {
             basicBlockNames.put(basicBlock, "b" + String.valueOf(basicBlockCnt++));
         }
         return basicBlockNames.get(basicBlock);
     }
 
-    private String getVirtualRegisterName(IrVirtualRegister virtualRegister) {
+    public String getVirtualRegisterName(IrVirtualRegister virtualRegister) {
         if (!virtualRegisterNames.containsKey(virtualRegister)) {
             virtualRegisterNames.put(virtualRegister, "vr" + String.valueOf(virtualRegisterCnt++));
         }
         return virtualRegisterNames.get(virtualRegister);
     }
 
-    private String getStackSlotName(IrStackSlot stackSlot) {
+    public String getStackSlotName(IrStackSlot stackSlot) {
         if (!stackSlotNames.containsKey(stackSlot)) {
             stackSlotNames.put(stackSlot, "stack [" + String.valueOf(stackSlotCnt++) + "]");
         }
         return stackSlotNames.get(stackSlot);
     }
 
-    private String getStaticDataName(IrStaticData staticData) {
+    public String getStaticDataName(IrStaticData staticData) {
         if (!staticDataNames.containsKey(staticData)) {
             staticDataNames.put(staticData, "L_" + String.valueOf(staticDataCnt++));
         }

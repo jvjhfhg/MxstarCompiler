@@ -67,9 +67,8 @@ public class IrRegisterSet {
         };
 
         for (int i = 0; i < 16; i++) {
-            IrPhysicalRegister physicalRegister = new IrPhysicalRegister();
+            IrPhysicalRegister physicalRegister = new IrPhysicalRegister(names[i]);
             IrVirtualRegister virtualRegister = new IrVirtualRegister("v" + names[i]);
-            physicalRegister.name = names[i];
             virtualRegister.allocatedPlace = physicalRegister;
             allRegs.add(physicalRegister);
             vAllRegs.add(virtualRegister);

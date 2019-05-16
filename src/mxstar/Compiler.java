@@ -75,13 +75,20 @@ public class Compiler {
 
         System.err.println("* Useless Instruction Eliminated...");
 
-        IrCorrector irCorrector = new IrCorrector(false);
+        boolean isBasicAllocator = true;
+
+        IrCorrector irCorrector = new IrCorrector(isBasicAllocator);
         irProgram.accept(irCorrector);
 
         System.err.println("* IR Corrected...");
 
-        RegisterAllocator allocator = new RegisterAllocator(irProgram);
-        allocator.process();
+        if (isBasicAllocator) {
+            FoolAllocator allocator = new FoolAllocator(irProgram);
+            allocator.process();
+        } else {
+            RegisterAllocator allocator = new RegisterAllocator(irProgram);
+            allocator.process();
+        }
 
         System.err.println("* Register Allocated...");
 
