@@ -100,8 +100,6 @@ public class IrFunction {
         recursiveUsedGlobalVariables.addAll(node.usedGlobalVariables);
     }
 
-
-
     public void finalProcess() {
         for (IrBasicBlock basicBlock : basicBlocks) {
             basicBlock.predecessors.clear();

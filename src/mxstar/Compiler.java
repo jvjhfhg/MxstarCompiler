@@ -92,7 +92,7 @@ public class Compiler {
 
         IrPrinter irPrinter = new IrPrinter();
         irProgram.accept(irPrinter);
-        irPrinter.printTo(new PrintStream("program.asm"));
+        irPrinter.printTo(System.out);
 
         System.err.println("* Compilation Completed.");
         System.exit(0);
