@@ -1,6 +1,6 @@
 # Mxstar Compiler
 
-Compiler 2019 Homework
+Compiler 2019 Project
 
 ## Abstract Syntax Tree
 ```
